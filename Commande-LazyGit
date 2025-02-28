@@ -1,0 +1,10 @@
+Quelques commandes de base à connaître dans l'interface Lazygit :
+
+? : affiche l'aide
+q : quitter
+c : commit les changements
+A : ajouter tous les fichiers modifiés
+a : ajouter un fichier individuel
+P : push
+p : pull
+space : sélectionner un fichier

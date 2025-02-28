@@ -50,6 +50,13 @@ git merge [nom-branche]           # Fusionne une branche dans la branche actuell
 git branch -d [nom-branche]       # Supprime une branche
 ```
 
+### Rebase et modification de l'historique
+```bash
+git rebase -i HEAD~[nombre]       # Rebase interactif pour modifier les [nombre] derniers commits
+git rebase -i [commit-hash]       # Rebase interactif depuis un commit spécifique
+git push --force-with-lease       # Push après un rebase (modifie l'historique, à utiliser avec précaution)
+```
+
 ### Travail avec des dépôts distants
 ```bash
 git remote -v                     # Liste les dépôts distants
@@ -82,6 +89,36 @@ git tag -a v1.0 -m "Version 1.0"  # Crée un tag annoté
 git push --tags                   # Envoie les tags vers le dépôt distant
 ```
 
+## Rebase interactif détaillé
+
+Le rebase interactif (`git rebase -i`) est un outil puissant qui permet de modifier l'historique des commits. Il vous donne plusieurs options pour chaque commit :
+
+```bash
+# Commandes disponibles dans le rebase interactif :
+# p, pick = utiliser le commit
+# r, reword = utiliser le commit, mais modifier le message
+# e, edit = utiliser le commit, mais s'arrêter pour le modifier
+# s, squash = utiliser le commit, mais le fusionner avec le précédent
+# f, fixup = comme "squash", mais en supprimant le message de commit
+# d, drop = supprimer le commit
+```
+
+### Cas d'utilisation courants du rebase interactif :
+
+1. **Modifier le message d'un commit** : Utilisez `reword`
+2. **Combiner plusieurs commits** : Utilisez `squash` ou `fixup`
+3. **Réordonner des commits** : Changez l'ordre des lignes
+4. **Supprimer des commits** : Utilisez `drop` ou supprimez la ligne
+5. **Diviser un commit** : Utilisez `edit`, puis `git reset HEAD^` pour défaire le commit tout en gardant les modifications, puis faites plusieurs nouveaux commits
+
+### Après un rebase qui modifie l'historique déjà poussé :
+```bash
+git push --force-with-lease origin [branche]  # Option recommandée, plus sécurisée
+# OU
+git push --force origin [branche]             # À utiliser avec précaution, peut écraser le travail d'autres personnes
+```
+
+
 ## Flux de travail typique
 
 1. `git pull` - Récupérer les derniers changements
@@ -98,15 +135,18 @@ git push --tags                   # Envoie les tags vers le dépôt distant
 - Utiliser des branches pour développer de nouvelles fonctionnalités
 - Vérifier l'état (`git status`) et les différences (`git diff`) avant de committer
 - Éviter de modifier l'historique public (commits déjà poussés)
+- Quand vous utilisez `rebase -i` sur des commits déjà poussés, informez vos collaborateurs
 
 ## Termes Git "origin", "Local", "Upstream"
 **Local**: C'est votre copie du dépôt sur votre ordinateur. C'est là où vous travaillez directement, où vous faites vos modifications et où vous créez vos commits.
+
 **Origin** : C'est généralement le dépôt distant à partir duquel vous avez cloné votre dépôt local. Par défaut, quand vous clonez un dépôt, Git nomme automatiquement cette source distante "origin". Lorsque vous effectuez un "git push", vous envoyez par défaut vos modifications à "origin".
+
 **Upstream**: Ce terme désigne le dépôt original à partir duquel vous avez fait un fork (une copie). C'est souvent utilisé dans le contexte des contributions open source. Par exemple :
 
-Vous faites un fork d'un projet sur GitHub (ce fork devient votre "origin")
-Vous clonez ce fork sur votre machine (votre dépôt "local")
-Le dépôt original dont vous avez fait le fork est alors appelé "upstream"
+- Vous faites un fork d'un projet sur GitHub (ce fork devient votre "origin")
+- Vous clonez ce fork sur votre machine (votre dépôt "local")
+- Le dépôt original dont vous avez fait le fork est alors appelé "upstream"
 
 **En résumé** :
 
