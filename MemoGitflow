@@ -1,0 +1,86 @@
+# Mémo GitFlow
+
+## Présentation
+GitFlow est un modèle de gestion de branches Git créé par Vincent Driessen. Il permet d'organiser efficacement le développement de projets en équipe grâce à une structure de branches bien définie.
+
+## Les branches principales
+
+### Main (ou Master)
+- Code en production
+- Chaque commit = nouvelle version
+- Uniquement des fusions depuis release/ ou hotfix/
+- Tags pour chaque version
+
+### Develop
+- Branche principale de développement
+- Contient les dernières fonctionnalités
+- Base pour toutes les nouvelles features
+- Fusion régulière avec les branches feature/
+
+## Les branches temporaires
+
+### Feature/
+- Nomenclature : `feature/nom-de-la-fonctionnalité`
+- Créée depuis : develop
+- Fusionnée dans : develop
+- Usage : développement de nouvelles fonctionnalités
+- Exemple : feature/login, feature/paiement
+
+### Release/
+- Nomenclature : `release/X.Y.Z`
+- Créée depuis : develop
+- Fusionnée dans : main ET develop
+- Usage : préparation d'une nouvelle version
+- Permet les derniers ajustements et corrections
+
+### Hotfix/
+- Nomenclature : `hotfix/X.Y.Z`
+- Créée depuis : main
+- Fusionnée dans : main ET develop
+- Usage : corrections urgentes en production
+
+## Commandes Git essentielles
+
+### Création de branches
+```bash
+# Feature
+git checkout develop
+git checkout -b feature/login
+
+# Release
+git checkout develop
+git checkout -b release/1.0.0
+
+# Hotfix
+git checkout main
+git checkout -b hotfix/1.0.1
+```
+
+### Fusion de branches
+```bash
+# Feature vers Develop
+git checkout develop
+git merge feature/login
+git branch -d feature/login
+
+# Release vers Main et Develop
+git checkout main
+git merge release/1.0.0
+git checkout develop
+git merge release/1.0.0
+git branch -d release/1.0.0
+
+# Hotfix vers Main et Develop
+git checkout main
+git merge hotfix/1.0.1
+git checkout develop
+git merge hotfix/1.0.1
+git branch -d hotfix/1.0.1
+```
+
+## Bonnes pratiques
+1. Ne jamais commiter directement sur main ou develop
+2. Toujours créer une branche feature/ pour les nouvelles fonctionnalités
+3. Nommer les branches de manière claire et cohérente
+4. Faire des commits réguliers avec des messages descriptifs
+5. Mettre à jour régulièrement sa branche feature/ avec develop
