@@ -1,0 +1,276 @@
+# Mémo Technique : Git Rebase & Gestion des Forks
+
+## Rebase vs Merge : Quand Utiliser Quoi ?
+
+### Quand Utiliser Merge
+1. Pour intégrer une feature terminée dans main/develop
+   ```
+   main   : A---B---C---M
+                     /
+   feature:     D---E
+   ```
+   - Garde l'historique complet de la branche
+   - Idéal pour les Pull Requests/Merge Requests
+   - Montre clairement quand la feature a été intégrée
+
+2. Pour des branches long-terme ou partagées
+   - Plus sûr car ne réécrit pas l'historique
+   - Adapté quand d'autres développeurs travaillent dessus
+   - Parfait pour les branches de release
+
+### Quand Utiliser Rebase
+1. Pour mettre à jour une feature branch avec main
+   ```
+   Avant:
+   main    : A---B---C---D
+        \
+   feature : E---F
+
+   Après rebase:
+   main    : A---B---C---D
+                         \
+   feature :             E'---F'
+   ```
+   - Évite les "merge commits" inutiles
+   - Garde un historique linéaire
+   - Plus facile à comprendre dans une PR
+
+2. Pour nettoyer l'historique avant une PR
+   ```bash
+   git rebase -i main
+   # Squash les petits commits de fix
+   # Réorganise les commits pour plus de clarté
+   ```
+
+3. Pour synchroniser un fork avec l'upstream
+   ```bash
+   git fetch upstream
+   git rebase upstream/main
+   ```
+
+### Exemple Concret
+Scénario courant :
+1. Création d'une feature branch
+2. 3-4 commits sur la feature
+3. Main avance de son côté
+4. Besoin de mise à jour de la feature
+
+Avec merge :
+```
+main    : A---B---C---D---E---F---G
+              \                 \
+feature :      H---I---J---K----M
+```
+- Crée un commit de merge à chaque sync
+- L'historique devient confus avec plusieurs merges
+
+Avec rebase :
+```
+main    : A---B---C---D---E---F---G
+                                  \
+feature :                         H'---I'---J'---K'
+```
+
+## Utilisation Détaillée du Rebase
+
+### Rebase Simple
+```bash
+# Depuis ta branche feature
+git checkout feature
+git rebase main
+
+# Si des conflits surviennent
+git status  # Voir les fichiers en conflit
+# Résoudre les conflits dans les fichiers
+git add <fichiers>
+git rebase --continue
+# ou
+git rebase --abort  # Pour annuler le rebase
+```
+
+### Rebase Interactif
+```bash
+git rebase -i HEAD~3  # Rebase interactif sur les 3 derniers commits
+
+# Options disponibles dans l'éditeur :
+# pick    - garder le commit tel quel
+# reword  - modifier le message du commit
+# edit    - modifier le contenu du commit
+# squash  - fusionner avec le commit précédent (garde les deux messages)
+# fixup   - fusionner avec le commit précédent (garde uniquement le premier message)
+# drop    - supprimer le commit
+```
+
+### Cas d'Usage du Rebase
+
+1. Nettoyer l'historique avant push
+```bash
+# Regrouper plusieurs commits
+git rebase -i HEAD~5
+# Changer pick en squash/fixup pour les commits à fusionner
+```
+
+2. Mettre à jour une branche longue durée
+```bash
+git checkout feature-longue
+git fetch origin
+git rebase origin/main
+git push --force-with-lease
+```
+
+3. Réorganiser des commits
+```bash
+git rebase -i HEAD~10
+# Réorganiser les lignes dans l'éditeur
+```
+
+4. Modifier un ancien commit
+```bash
+git rebase -i <commit-hash>^
+# Changer pick en edit
+# Faire les modifications
+git add .
+git commit --amend
+git rebase --continue
+```
+
+## Avantages du Rebase
+
+1. Évite les merges parasites
+   - Pas de commits de fusion inutiles
+   - Historique plus propre et linéaire
+   - Facilite les code reviews
+
+2. Meilleure lisibilité
+   - Changements présentés séquentiellement
+   - Histoire du projet plus claire
+   - Fast-forward merge possible lors de l'intégration finale
+
+3. Contrôle accru
+   - Possibilité de modifier/réorganiser les commits
+   - Meilleure granularité dans la gestion des conflits
+   - Maintien d'un historique propre
+
+## Gestion d'un Fork avec Rebase
+
+### Configuration Initiale
+```bash
+# Vérifier les remotes
+git remote -v
+
+# Ajouter l'upstream
+git remote add upstream <URL_REPO_ORIGINAL>
+```
+
+### Synchronisation avec l'Upstream
+```bash
+# Se placer sur main
+git checkout main
+
+# Récupérer les changements de l'upstream
+git fetch upstream
+
+# Rebase sur l'upstream
+git rebase upstream/main
+
+# Mettre à jour le fork
+git push origin main --force-with-lease
+```
+
+### Workflow Recommandé avec Fork
+1. Maintenir main synchronisé avec l'upstream
+```bash
+git checkout main
+git fetch upstream
+git rebase upstream/main
+git push origin main --force-with-lease
+```
+
+2. Développer sur des branches feature
+```bash
+git checkout -b feature
+# Développement...
+git commit -m "feat: nouvelle fonctionnalité"
+```
+
+3. Synchroniser la feature avec upstream
+```bash
+git fetch upstream
+git rebase upstream/main
+git push origin feature --force-with-lease
+```
+
+## Résolution des Problèmes Courants
+
+### Conflits pendant le Rebase
+1. Identifier les fichiers en conflit
+```bash
+git status
+```
+
+2. Résoudre les conflits
+   - Ouvrir les fichiers marqués
+   - Chercher les marqueurs de conflit (<<<<<<, =======, >>>>>>>)
+   - Choisir les modifications à garder
+
+3. Continuer le rebase
+```bash
+git add <fichiers>
+git rebase --continue
+```
+
+### Erreurs Courantes
+1. Rebase sur la mauvaise branche
+```bash
+git reflog  # Voir l'historique des actions
+git reset --hard HEAD@{n}  # Revenir avant le rebase
+```
+
+2. Perte de commits après rebase
+```bash
+git reflog  # Trouver le commit perdu
+git cherry-pick <commit-hash>  # Récupérer le commit
+```
+
+## Résumé des Cas d'Usage
+
+### Utiliser Rebase Pour
+- Mettre à jour ta branche avec main pendant le développement
+- Nettoyer ton historique avant une PR
+- Garder un fork synchronisé avec l'upstream
+- Travailler seul sur une branche
+
+### Utiliser Merge Pour
+- Intégrer une feature terminée dans main
+- Les branches partagées avec d'autres devs
+- Les branches long-terme comme develop ou release
+- Quand tu veux garder l'historique exact des modifications
+
+## Points Importants
+
+### Précautions
+- Ne jamais rebase des branches publiques (main, develop)
+- Toujours utiliser --force-with-lease après un rebase
+- Créer une branche de backup avant un rebase complexe
+- Vérifier deux fois avant un force push
+
+### Bonnes Pratiques
+- Communiquer avec l'équipe avant un force push
+- Maintenir des branches feature courtes
+- Rebase régulier pour éviter les gros conflits
+- Toujours avoir une branche de backup pour les rebase complexes
+
+### Commandes de Secours
+```bash
+# Annuler un rebase en cours
+git rebase --abort
+
+# Revenir à l'état avant rebase
+git reset --hard ORIG_HEAD
+
+# Voir l'historique des actions
+git reflog
+
+# Créer une branche de backup
+git branch backup-avant-rebase
+```
