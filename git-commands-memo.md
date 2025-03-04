@@ -38,6 +38,8 @@ git add .                         # Ajoute tous les fichiers modifiés au stagin
 git reset [fichier]               # Retire un fichier du staging
 git commit -m "message"           # Crée un commit avec les fichiers en staging
 git commit -am "message"          # Add + commit en une seule commande (fichiers déjà suivis)
+git commit --amend                # permet de modifier le commit quand il est encore dans le Working Directory attention pour le push sera reject utilisé git push --force ou git push --force-with-lease (Meilleur pratique car vérifie que personne d'autre n'a pushé de nouveaux commits sur la branche distante entre temps, évite d'écraser accidentellement le travail de quelqu'un d'autre)
+
 ```
 
 ### Branches
