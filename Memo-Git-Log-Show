@@ -1,0 +1,122 @@
+# Mémo Complet Git Log & Show
+
+## Phrases à retenir
+- "**L**og liste l'**H**istorique, **S**how **D**étaille un commit" (LHSD)
+- Git Log = Carte du territoire, Git Show = Loupe d'inspection
+
+## Vue d'ensemble comparative
+
+### Git Log : La Carte
+```bash
+# Commande de base
+git log  # Affiche tout l'historique
+
+# Formats courants
+git log --oneline          # Une ligne par commit
+git log --graph           # Avec graphe ASCII
+git log --pretty=format:"%h - %an, %ar : %s"  # Format personnalisé
+
+# Filtres utiles
+git log -n 5              # 5 derniers commits
+git log --author="nom"    # Commits par auteur
+git log --since="2 weeks" # Commits récents
+git log --grep="feat"     # Recherche dans messages
+```
+
+### Git Show : La Loupe
+```bash
+# Commande de base
+git show         # Dernier commit
+git show abc123  # Commit spécifique
+
+# Options courantes
+git show --name-only      # Liste des fichiers
+git show --stat          # Statistiques
+git show HEAD~1          # Commit précédent
+git show commit:fichier  # État d'un fichier
+```
+
+## Utilisations spécifiques
+
+### 1. Navigation dans l'historique
+- **Log** : Vue d'ensemble et recherche
+  ```bash
+  git log --all --graph --decorate --oneline
+  ```
+- **Show** : Inspection détaillée
+  ```bash
+  git show <hash-trouvé>
+  ```
+
+### 2. Analyse de modifications
+- **Log** : Trouver le contexte
+  ```bash
+  git log -p fichier.txt  # Historique avec diffs
+  ```
+- **Show** : Examiner précisément
+  ```bash
+  git show abc123 fichier.txt  # Modifications spécifiques
+  ```
+
+### 3. Workflow typique
+1. Utiliser `log` pour localiser
+2. Utiliser `show` pour analyser
+3. Revenir à `log` pour le contexte si nécessaire
+
+## Caractéristiques principales
+
+### Git Log
+- **Objectif** : Vision globale de l'historique
+- **Portée** : Tout le projet ou filtrée
+- **Performance** : Peut être lent sur grands dépôts
+- **Utilisation** : Navigation et recherche
+
+### Git Show
+- **Objectif** : Analyse détaillée d'un point
+- **Portée** : Un commit spécifique
+- **Performance** : Rapide et constant
+- **Utilisation** : Inspection et vérification
+
+## Cas d'usage avancés
+
+### Analyse de code
+```bash
+# Trouver quand un bug a été introduit
+git log -S"bug" --patch
+git show <commit-suspect>
+
+# Examiner les fusions
+git log --merges
+git show --first-parent
+```
+
+### Révision de code
+```bash
+# Activité récente
+git log --since="yesterday"
+git show --stat HEAD
+
+# Changements par auteur
+git log --author="John"
+git show --name-only
+```
+
+## Astuces de productivité
+
+### Pour Git Log
+1. Créer des alias pour les formats fréquents
+2. Utiliser les filtres pour réduire la sortie
+3. Combiner avec grep pour des recherches efficaces
+
+### Pour Git Show
+1. Utiliser avec les références relatives (HEAD~1)
+2. Explorer les tags et branches
+3. Examiner les stashes (git show stash@{0})
+
+## Points clés à retenir
+
+1. **Complémentarité** : Log pour trouver, Show pour examiner
+2. **Granularité** : Log est macro, Show est micro
+3. **Workflow** : Commencer large (log) puis zoomer (show)
+4. **Performance** : Adapter les commandes à la taille du projet
+5. **Flexibilité** : Nombreuses options pour chaque besoin
