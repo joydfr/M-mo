@@ -1,0 +1,228 @@
+# Git Reset vs Git Revert : Comprendre les Différences
+
+## Git Reset
+`git reset` est une commande qui permet de **modifier l'historique** de votre dépôt en déplaçant le pointeur HEAD et la branche courante vers un commit spécifique. C'est comme si vous "remontiez dans le temps" pour revenir à un état précédent.
+
+### Les trois modes de reset
+
+1. **git reset --soft**
+   - Déplace uniquement le pointeur HEAD
+   - Conserve les modifications dans la staging area
+   - Idéal pour regrouper plusieurs commits
+   
+   ```bash
+   # Exemple : Revenir au commit précédent tout en gardant les modifications
+   git reset --soft HEAD~1
+   ```
+
+2. **git reset --mixed** (mode par défaut)
+   - Déplace HEAD et désindexe les modifications
+   - Les fichiers modifiés restent dans le working directory
+   - Utile pour réorganiser les modifications avant de commit
+   
+   ```bash
+   # Exemple : Désindexer les modifications tout en les conservant dans le working directory
+   git reset HEAD~1
+   ```
+
+3. **git reset --hard**
+   - Déplace HEAD et supprime toutes les modifications
+   - ATTENTION : Les changements sont définitivement perdus
+   - À utiliser avec précaution
+   
+   ```bash
+   # Exemple : Revenir à un état précédent en supprimant toutes les modifications
+   git reset --hard abc123f
+   ```
+
+## Git Revert
+`git revert` crée un **nouveau commit** qui annule les modifications d'un commit précédent. Contrairement à reset, revert ne modifie pas l'historique existant mais ajoute un nouveau commit d'annulation.
+
+### Caractéristiques principales
+
+- Préserve l'historique complet
+- Sûr pour les branches partagées
+- Idéal pour la collaboration
+- Réversible
+
+```bash
+# Exemple : Annuler le dernier commit
+git revert HEAD
+
+# Annuler un commit spécifique
+git revert abc123f
+
+# Annuler une série de commits
+git revert HEAD~3..HEAD
+```
+
+## Quand utiliser l'un ou l'autre ?
+
+### Utilisez Git Reset quand :
+- Vous travaillez sur une branche locale
+- Vous voulez "nettoyer" l'historique avant de pusher
+- Vous souhaitez regrouper plusieurs commits
+- Vous avez commité par erreur et personne n'a encore pull
+
+### Utilisez Git Revert quand :
+- Vous travaillez sur une branche partagée
+- Vous voulez annuler des modifications déjà pushées
+- Vous souhaitez garder une trace de l'annulation
+- Vous travaillez en équipe
+
+## Exemples Pratiques
+
+### Scénario 1 : Corriger le dernier commit
+```bash
+# Avec reset
+git reset --soft HEAD~1
+# Modifiez vos fichiers
+git add .
+git commit -m "Message corrigé"
+
+# Avec revert
+git revert HEAD
+# Le commit d'annulation est automatiquement créé
+```
+
+### Scénario 2 : Annuler plusieurs commits
+```bash
+# Avec reset
+git reset --hard HEAD~3
+# Attention : Modifications perdues !
+
+# Avec revert
+git revert HEAD~2..HEAD
+# Crée 3 commits d'annulation
+```
+
+### Scénario 3 : Réorganiser les modifications
+```bash
+# Avec reset
+git reset --mixed HEAD~2
+git add fichier1.txt
+git commit -m "Premier commit réorganisé"
+git add fichier2.txt
+git commit -m "Second commit réorganisé"
+
+# Avec revert
+# Non recommandé pour ce cas d'usage
+```
+
+## Questions Fréquentes et Approfondissement
+
+### Q : Reset vs Revert : Local vs Collaboratif ?
+Reset s'utilise plutôt en local lors d'un travail seul, tandis que Revert est préféré pour un dépôt distant en collaboration.
+
+**Pour Reset (travail local) :**
+- Modifie l'historique Git en supprimant des commits
+- Nécessite un `git push --force` après utilisation (risqué en équipe)
+- Parfait pour nettoyer l'historique avant de partager le code
+- Donne un contrôle total sur les commits locaux
+
+**Pour Revert (travail collaboratif) :**
+- Ne modifie pas l'historique existant mais crée un nouveau commit d'annulation
+- Les autres développeurs voient clairement ce qui a été annulé
+- Pas de conflit lors du push (c'est juste un nouveau commit)
+- L'historique reste cohérent pour toute l'équipe
+
+### Q : Que font exactement ces commandes ?
+
+#### Pour Git Reset :
+Imaginons cette situation :
+```
+A -> B -> C -> D (HEAD)
+```
+
+Les trois modes agissent différemment :
+
+1. `git reset --soft HEAD~1` :
+   - Revient au commit C
+   - Les changements du commit D restent dans la staging area
+   - Comme si le `git commit` n'avait jamais été fait
+
+2. `git reset --mixed HEAD~1` :
+   - Revient au commit C
+   - Les changements sont "désindexés" (sortent de la staging area)
+   - Comme si ni `git add` ni `git commit` n'avaient été faits
+
+3. `git reset --hard HEAD~1` :
+   - Revient au commit C
+   - TOUS les changements du commit D sont supprimés
+   - Les fichiers reviennent exactement à l'état du commit C
+
+#### Pour Git Revert :
+Avec la même situation :
+```
+A -> B -> C -> D (HEAD)
+```
+
+Après `git revert D` :
+```
+A -> B -> C -> D -> D' (HEAD)
+```
+- D' contient l'inverse des changements de D
+- Si D ajoutait une ligne, D' la supprime
+- Si D supprimait un fichier, D' le recrée
+
+### Q : Quelle différence avec git rebase -i ?
+
+`git rebase -i` est différent car il permet de :
+- Réorganiser l'ordre des commits
+- Modifier les messages des commits
+- Fusionner plusieurs commits
+- Supprimer des commits
+- Modifier le contenu des commits
+
+Exemple comparatif :
+```bash
+# Situation initiale
+C1 -> C2 -> C3 -> C4 (HEAD)
+
+# Avec rebase -i HEAD~3
+# Possibilités :
+pick C2
+squash C3    # Fusionne C3 dans C2
+edit C4      # Modifie C4
+# Résultat possible :
+C1 -> C2+C3 -> C4_modifié (HEAD)
+
+# Avec reset HEAD~2
+C1 -> C2 (HEAD)
+# C3 et C4 sont retirés
+
+# Avec revert C3
+C1 -> C2 -> C3 -> C4 -> C3' (HEAD)
+# C3' annule C3
+```
+
+### Q : Pourquoi garder un commit bugué dans l'historique ?
+
+Prenons un exemple :
+```bash
+commit A : Application fonctionne
+commit B : Nouvelle fonctionnalité (avec bug)
+commit C : Autres changements
+```
+
+On garde B pour plusieurs raisons :
+1. **Traçabilité :**
+   - L'historique montre clairement le problème et sa solution
+   - Aide pour le débogage futur
+
+2. **Collaboration :**
+   - D'autres développeurs ont peut-être ce commit
+   - Évite les désynchronisations
+
+3. **Audit :**
+   - Permet de comprendre l'évolution du code
+   - Montre qui a fait quoi et quand
+
+C'est comme un livre de comptes : on n'efface pas une erreur (reset), on écrit une correction (revert).
+
+## Points importants à retenir
+- Reset modifie l'historique, Revert ajoute à l'historique
+- Reset est local, Revert est collaboratif
+- Reset peut perdre des données, Revert est toujours sûr
+- Reset est plus flexible, Revert est plus simple
+- Pour tester une ancienne version, utilisez `git checkout` plutôt que reset ou revert
