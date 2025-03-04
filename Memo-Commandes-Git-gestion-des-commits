@@ -1,0 +1,288 @@
+# Guide des commandes Git pour la gestion des commits
+
+## Annuler des commits
+
+### 1. Annuler le dernier commit en gardant les modifications
+```bash
+git reset --soft HEAD~1
+# Les fichiers restent modifiés et dans la staging area
+# Vous pouvez refaire le commit
+```
+
+### 2. Annuler le dernier commit et les modifications
+```bash
+git reset --hard HEAD~1
+# ATTENTION : Les modifications sont perdues !
+```
+
+### 3. Annuler un commit sans modifier l'historique
+```bash
+git revert <commit-hash>
+# Crée un nouveau commit qui annule les changements
+```
+
+## Merger des commits
+
+### 1. Fusionner les derniers commits (squash)
+```bash
+# Pour fusionner les 3 derniers commits
+git rebase -i HEAD~3
+
+# Dans l'éditeur qui s'ouvre :
+pick abc123 Premier commit
+squash def456 Deuxième commit
+squash ghi789 Troisième commit
+```
+
+### 2. Merger une branche
+```bash
+# Depuis votre branche principale
+git merge feature-branch
+
+# Merger sans commit de merge (fast-forward)
+git merge --ff-only feature-branch
+
+# Merger en créant toujours un commit de merge
+git merge --no-ff feature-branch
+```
+
+## Déplacer HEAD
+
+### 1. Déplacer HEAD temporairement (Detached HEAD)
+```bash
+# Se déplacer sur un commit spécifique
+git checkout <commit-hash>
+
+# Revenir à la branche principale
+git checkout main
+```
+
+### 2. Déplacer HEAD et la branche
+```bash
+# Déplacer HEAD et la branche actuelle
+git reset --hard <commit-hash>
+
+# Déplacer HEAD sans perdre les modifications
+git reset --soft <commit-hash>
+```
+
+### 3. Créer une nouvelle branche à partir d'un ancien commit
+```bash
+git checkout -b nouvelle-branche <commit-hash>
+```
+
+## Astuces et bonnes pratiques
+
+### 1. Avant de faire des modifications importantes
+```bash
+# Créer une branche de sauvegarde
+git branch backup-branch
+
+# Ou créer un tag
+git tag backup-point
+```
+
+### 2. Voir l'historique des déplacements de HEAD
+```bash
+git reflog
+# Permet de retrouver des commits "perdus"
+```
+
+### 3. Annuler une fusion en cours avec conflits
+```bash
+git merge --abort
+```
+
+### 4. Vérifier l'état avant/après les opérations
+```bash
+# Voir l'état des fichiers
+git status
+
+# Voir l'historique
+git log --oneline --graph
+
+# Voir où pointe HEAD
+git rev-parse HEAD
+```
+
+## Solutions d'urgence "Oh Shit Git !"
+
+### 1. "Oh shit, j'ai fait une grosse bêtise et j'ai besoin de revenir à l'état d'il y a 10 minutes !"
+```bash
+# Le reflog contient l'historique de tout ce que vous avez fait
+git reflog
+# Trouvez le moment avant la catastrophe
+git reset --hard HEAD@{2}
+# ou avec le hash du commit
+git reset --hard abc123
+```
+
+### 2. "Oh shit, j'ai commité sur la mauvaise branche !"
+```bash
+# Annuler le dernier commit mais garder les modifications
+git reset HEAD~ --soft
+git stash
+# Aller sur la bonne branche
+git checkout correct-branch
+git stash pop
+git add .
+git commit -m "votre message"
+```
+
+### 3. "Oh shit, j'ai besoin d'annuler un commit d'il y a 5 commits !"
+```bash
+# Trouver le commit à annuler
+git log --oneline
+# Créer un nouveau commit qui fait l'inverse
+git revert abc123f
+```
+
+### 4. "Oh shit, j'ai commité quelque chose de sensible !"
+```bash
+# Créer un nouveau commit qui supprime les données sensibles
+git rm --cached fichier_sensible
+git commit --amend -C HEAD
+
+# Si déjà pushé, après avoir supprimé les données :
+git push --force-with-lease origin main
+```
+
+### 5. "Oh shit, je dois modifier mon dernier commit !"
+```bash
+# Ajouter les modifications oubliées
+git add .
+git commit --amend
+# ou sans changer le message
+git commit --amend --no-edit
+```
+
+### 6. "Oh shit, j'ai accidentellement committé sur main au lieu d'une nouvelle branche !"
+```bash
+# Créer une nouvelle branche à partir de main
+git branch nouvelle-branche
+# Revenir en arrière sur main
+git reset HEAD~ --hard
+git checkout nouvelle-branche
+```
+
+### 7. "Oh shit, j'ai des conflits de merge !"
+```bash
+# Annuler le merge en cours
+git merge --abort
+
+# Voir quels fichiers sont en conflit
+git status
+
+# Après résolution des conflits
+git add .
+git commit -m "Fix merge conflicts"
+```
+
+### 8. "Oh shit, je dois annuler un merge déjà commité !"
+```bash
+# Trouver le commit de merge
+git log --merges
+# Revenir avant le merge
+git reset --hard HEAD~1
+# ou
+git revert -m 1 <hash-du-merge>
+```
+
+### 9. "Oh shit, j'ai perdu mes modifications non committées !"
+```bash
+# Vérifier si stashées
+git stash list
+
+# Voir les fichiers supprimés récemment
+git fsck --lost-found
+
+# Vérifier le reflog pour commits récents
+git reflog
+```
+
+### 10. "Oh shit, git pull a écrasé mes modifications !"
+```bash
+# Voir le reflog
+git reflog
+# Revenir avant le pull
+git reset --hard HEAD@{1}
+# Sauvegarder vos modifications
+git stash
+# Refaire le pull
+git pull
+# Réappliquer vos modifications
+git stash pop
+```
+
+## Annulation détaillée des Merge Commits
+
+### 1. Identifier le merge commit
+```bash
+# Voir tous les merges
+git log --merges
+
+# Format plus lisible avec graph
+git log --graph --oneline --merges
+
+# Voir le dernier merge
+git show :/^merge
+```
+
+### 2. Méthodes d'annulation
+
+#### Méthode 1 : git revert (Recommandée pour branches partagées)
+```bash
+# Syntaxe de base
+git revert -m 1 <hash-du-merge>
+
+# Exemple concret
+git revert -m 1 abc123f
+
+# L'option -m 1 signifie :
+# - 1 : garder les changements de la branche principale
+# - 2 : garder les changements de la branche mergée
+```
+
+#### Méthode 2 : git reset (Pour branches locales uniquement)
+```bash
+# Revenir juste avant le merge
+git reset --hard HEAD~1
+
+# Ou avec le hash spécifique
+git reset --hard <hash-avant-merge>
+```
+
+### 3. Cas particuliers
+
+#### Si le merge est en cours (avec conflits)
+```bash
+# Annuler le merge en cours
+git merge --abort
+
+# Ou si vous êtes perdu
+git reset --hard HEAD
+```
+
+#### Cas pratique : Merge d'une feature branch
+```bash
+main    A---B---C---M (HEAD)
+              \     /
+feature        D---E
+
+# Pour annuler le merge M :
+git revert -m 1 M
+
+# Résultat :
+main    A---B---C---M---R (HEAD)
+              \     /
+feature        D---E
+
+# R est un nouveau commit qui annule les changements de D et E
+```
+
+### 4. Bonnes pratiques
+- Toujours créer une branche de backup avant d'annuler un merge important
+- Utiliser `revert` pour les branches partagées
+- Utiliser `reset` uniquement pour les branches locales
+- Bien vérifier l'option `-m` avec `revert`
+- Considérer l'impact sur les autres développeurs
