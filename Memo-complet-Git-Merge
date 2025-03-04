@@ -1,0 +1,459 @@
+# Mémo complet sur le merge dans Git
+
+## Concepts fondamentaux
+
+Le merge est l'opération qui permet d'intégrer les changements d'une branche dans une autre. C'est l'une des opérations les plus importantes et complexes de Git.
+
+## Types de merge
+
+### Fast-forward merge
+
+Quand la branche de destination est un ancêtre direct de la branche source :
+
+```
+A---B---C (main)
+         \
+          D---E (feature)
+```
+
+Après `git merge feature` (depuis main) :
+
+```
+A---B---C---D---E (main, feature)
+```
+
+Aucun commit de merge n'est créé, le pointeur de branche est simplement avancé.
+
+### True merge (merge commit)
+
+Quand les branches ont divergé :
+
+```
+A---B---C (main)
+     \
+      D---E (feature)
+```
+
+Après `git merge feature` :
+
+```
+A---B---C-------F (main)
+     \         /
+      D---E---/ (feature)
+```
+
+Un nouveau commit F est créé avec deux parents.
+
+### Squash merge
+
+Combine tous les changements de la branche source en un seul commit sur la branche de destination :
+
+```
+A---B---C (main)
+     \
+      D---E (feature)
+```
+
+Après `git merge --squash feature` suivi de `git commit` :
+
+```
+A---B---C---F' (main)
+     \
+      D---E (feature)
+```
+
+F' contient toutes les modifications de D et E, mais n'a qu'un seul parent (C).
+
+## Stratégies de merge en détail
+
+Git propose plusieurs stratégies de merge adaptées à différentes situations :
+
+### 1. resolve
+
+La stratégie la plus simple qui utilise l'algorithme à trois voies (three-way merge) pour résoudre les conflits.
+
+```bash
+git merge -s resolve feature
+```
+
+**Cas d'utilisation** : Merges simples entre deux branches avec peu de conflits potentiels.
+
+**Limites** : Ne gère pas bien les renames ou les merges croisés complexes.
+
+### 2. recursive (défaut)
+
+Stratégie par défaut, extension de la stratégie resolve avec des fonctionnalités avancées.
+
+```bash
+git merge -s recursive feature
+```
+
+**Fonctionnalités clés** :
+- Détection et gestion des renames
+- Gestion des criss-cross merges (historiques qui se croisent)
+- Merge récursif des commits de merge
+
+**Options avancées** :
+```bash
+# Ignorer les changements d'espaces blancs
+git merge -X ignore-space-change feature
+
+# Favoriser notre version en cas de conflit
+git merge -X ours feature
+
+# Favoriser leur version en cas de conflit
+git merge -X theirs feature
+
+# Détection de renames plus agressive
+git merge -X rename-threshold=30 feature
+
+# Ignorer les renames
+git merge -X no-renames feature
+
+# Pour éviter que des fichiers renommés soient considérés comme supprimés/ajoutés
+git merge -X find-renames=50% feature
+```
+
+### 3. octopus
+
+Spécialisée pour fusionner plus de deux têtes (branches) simultanément.
+
+```bash
+git merge -s octopus branch1 branch2 branch3
+```
+
+**Fonctionnement** :
+1. Calcule l'ancêtre commun de toutes les branches
+2. Applique les changements de chaque branche
+3. Crée un commit avec plusieurs parents
+
+**Cas d'utilisation** :
+- Intégration régulière de plusieurs branches de fonctionnalités parallèles
+- Projets avec de nombreuses branches thématiques qui doivent être synchronisées
+
+**Limites** :
+- Ne résout pas les conflits : échoue dès qu'un conflit manuel est nécessaire
+- Principalement utile pour des intégrations sans conflit
+
+**Exemple réel** :
+Intégration de plusieurs branches de fonctionnalités indépendantes dans une branche d'intégration ou de release.
+
+### 4. ours
+
+Ignore complètement le contenu de la branche à merger, mais enregistre le merge dans l'historique.
+
+```bash
+git merge -s ours obsolete-branch
+```
+
+**Fonctionnement** :
+1. Crée un commit de merge
+2. Utilise uniquement le contenu de la branche actuelle
+3. Marque la branche source comme fusionnée
+
+**Cas d'utilisation** :
+- Déclarer une branche comme obsolète tout en préservant l'historique
+- Éviter les fusions futures avec cette branche
+- Résoudre les conflits en faveur de notre branche de manière systématique
+
+### 5. subtree
+
+Permet de fusionner l'historique d'un projet dans un sous-répertoire d'un autre projet.
+
+```bash
+git merge -s subtree --allow-unrelated-histories project-b
+```
+
+**Fonctionnement** :
+1. Détecte les modifications qui affectent un sous-répertoire spécifique
+2. Ajuste les chemins de fichiers pour qu'ils correspondent
+3. Permet de fusionner des projets avec des historiques non liés
+
+**Cas d'utilisation** :
+- Intégrer un projet externe comme sous-module
+- Fusionner un sous-projet qui a été développé séparément
+- Maintenir un module partagé entre plusieurs projets
+
+**Exemple détaillé** :
+Imaginons deux projets :
+- Projet A : projet principal
+- Projet B : bibliothèque externe
+
+Pour intégrer le Projet B dans un sous-répertoire `lib/` du Projet A :
+
+```bash
+# Dans le projet A
+git remote add projet-b /chemin/vers/projet-b
+git fetch projet-b
+git merge -s subtree --allow-unrelated-histories projet-b/main
+```
+
+Git détectera que les fichiers du Projet B doivent être placés dans le sous-répertoire `lib/` et ajustera les chemins automatiquement.
+
+Pour les mises à jour futures :
+
+```bash
+git fetch projet-b
+git merge -s subtree projet-b/main
+```
+
+### 6. patience
+
+Une variante de la stratégie recursive qui utilise l'algorithme "patience diff".
+
+```bash
+git merge -s recursive -X patience feature
+```
+
+**Fonctionnement** :
+- Plus lent mais plus précis
+- Meilleure détection des lignes déplacées
+- Moins de conflits inutiles
+
+**Cas d'utilisation** :
+- Code fortement remanié
+- Reformatage massif
+
+## rerere (Reuse Recorded Resolution)
+
+Rerere permet à Git de mémoriser comment les conflits ont été résolus pour les réappliquer automatiquement.
+
+### Configuration et activation
+
+```bash
+# Activation globale (pour tous les repos)
+git config --global rerere.enabled true
+
+# Activation pour un repo spécifique
+git config rerere.enabled true
+```
+
+Les données de rerere sont stockées dans `.git/rr-cache/` et sont spécifiques à chaque dépôt. Elles ne sont pas partagées entre les dépôts, même si la configuration est globale.
+
+### Fonctionnement détaillé
+
+1. Lorsqu'un conflit apparaît, Git enregistre l'état conflictuel (empreinte du conflit)
+2. Quand l'utilisateur résout le conflit et valide la résolution avec `git add`, Git enregistre cette résolution
+3. Si le même conflit réapparaît plus tard (même dans une autre branche du même dépôt), Git :
+   - Détecte que ce conflit a déjà été résolu
+   - Réapplique automatiquement la résolution précédente
+   - Marque le fichier comme résolu (si rerere.autoUpdate est true)
+
+### Commandes associées
+
+```bash
+# Voir les conflits mémorisés
+git rerere status
+
+# Voir les résolutions enregistrées
+git rerere diff
+
+# Effacer une résolution mémorisée
+git rerere forget <fichier>
+
+# Appliquer manuellement les résolutions mémorisées
+git rerere
+```
+
+### Cas d'utilisation
+
+1. **Rebase fréquent** : Si vous rebasez souvent une branche de fonctionnalité, les mêmes conflits peuvent réapparaître
+2. **Merge/revert/merge** : Lors d'un cycle où un merge est fait, puis annulé, puis refait
+3. **Branches longues** : Quand une branche de fonctionnalité est régulièrement synchronisée avec main
+
+### Avantages et limites
+
+**Avantages** :
+- Économie de temps pour les conflits répétitifs
+- Cohérence dans la résolution des conflits
+- Particulièrement utile dans les équipes
+
+**Limites** :
+- Spécifique à chaque dépôt (pas de partage entre dépôts)
+- Nécessite une correspondance exacte du conflit
+- Peut appliquer des résolutions obsolètes si le contexte a changé
+
+## Merge avancé et cas particuliers
+
+### Merge partiels
+
+```bash
+# Merger seulement certains fichiers ou répertoires
+git checkout feature -- path/to/file
+git add path/to/file
+git commit
+```
+
+### Merge de branches non liées
+
+```bash
+git merge --allow-unrelated-histories external-project
+```
+
+Utile pour fusionner des projets indépendants ou après un git clone --depth.
+
+### Merge avec des branches orphelines
+
+Les branches orphelines n'ont pas d'historique commun avec les autres branches :
+
+```bash
+git checkout --orphan new-start
+# ... commits ...
+git merge --allow-unrelated-histories main
+```
+
+### Cherry-pick vs Merge
+
+Le cherry-pick applique un commit spécifique sans fusionner toute la branche :
+
+```bash
+git cherry-pick commit-hash
+```
+
+Différences avec merge :
+- N'établit pas de relation entre les branches
+- Crée un nouveau commit avec un nouveau hash
+- Ne résout pas automatiquement les conflits futurs
+
+## Outils de gestion de conflits
+
+### Outil intégré
+
+```bash
+git mergetool
+```
+
+Lance un outil visuel de résolution de conflits (configurable).
+
+### Configuration des outils
+
+```bash
+git config --global merge.tool vimdiff
+git config --global mergetool.vimdiff.cmd 'vim -d $LOCAL $REMOTE $MERGED -c "wincmd J"'
+```
+
+Outils populaires : vimdiff, kdiff3, meld, beyond compare, vscode.
+
+### Marqueurs de conflit personnalisés
+
+```bash
+git config --global merge.conflictstyle diff3
+```
+
+Affiche aussi le contenu de l'ancêtre commun :
+
+```
+<<<<<<< HEAD
+Version actuelle
+||||||| merged common ancestor
+Version de l'ancêtre commun
+=======
+Version à merger
+>>>>>>> feature
+```
+
+## Git attributes et merge drivers
+
+Le fichier `.gitattributes` permet de spécifier comment gérer les merges pour des types de fichiers spécifiques :
+
+```
+*.txt merge=text
+*.png merge=binary
+data.csv merge=csv
+```
+
+### Création d'un merge driver personnalisé
+
+```bash
+git config --global merge.csv.driver 'csv-merge-script %O %A %B %A'
+git config --global merge.csv.name 'CSV merge driver'
+```
+
+Où :
+- %O est le fichier ancêtre commun
+- %A est la version locale (HEAD)
+- %B est la version à merger
+
+## Bonnes pratiques et astuces
+
+### Avant un merge
+
+```bash
+# Vérifier les différences avant de merger
+git diff main...feature
+
+# Simuler un merge sans l'effectuer
+git merge --no-commit --no-ff feature
+git merge --abort
+```
+
+### Patterns de branchement
+
+1. **Git Flow** : 
+   - main/master : code de production
+   - develop : intégration continue
+   - feature/* : nouvelles fonctionnalités
+   - release/* : préparation de releases
+   - hotfix/* : corrections urgentes
+
+2. **GitHub Flow** :
+   - main : toujours déployable
+   - feature branches : courtes et fusionnées via pull requests
+
+3. **Trunk-Based Development** :
+   - Branches de courte durée
+   - Fusions fréquentes dans main
+
+### Résolution de conflits intelligente
+
+```bash
+# Utiliser leur version pour tous les conflits
+git checkout --theirs .
+git add .
+
+# Utiliser notre version pour tous les conflits
+git checkout --ours .
+git add .
+
+# Utiliser leur version pour un fichier spécifique
+git checkout --theirs path/to/file
+git add path/to/file
+```
+
+### Debug des merges
+
+```bash
+# Voir quelle stratégie a été utilisée pour un merge
+git show -s --format=%s <commit-hash>
+
+# Voir les fichiers conflictuels d'un merge
+git diff --name-only --diff-filter=U
+
+# Comprendre pourquoi un fichier a un conflit
+git log --merge -p <file>
+```
+
+## Merge et intégration continue
+
+Dans un environnement CI/CD, les stratégies de merge impactent les workflows :
+
+### Merge vs Rebase dans les pull requests
+
+- **Merge** : Préserve l'historique complet mais crée des graphes complexes
+- **Rebase** : Historique linéaire mais perte de contexte et risques sur les branches partagées
+- **Squash** : Historique propre mais perte de détails des commits individuels
+
+### Stratégies d'équipe
+
+Options de configuration GitHub/GitLab pour les pull requests :
+- Allow merge commits
+- Allow squash merging
+- Allow rebase merging
+
+### Branches protégées
+
+Règles pour sécuriser les merges :
+- Exiger des reviews
+- Exiger des tests CI réussis
+- Interdire le force push
+- Appliquer un historique linéaire
