@@ -1,3 +1,4 @@
+
 # Documentation des Alias Oh My Zsh
 
 ## Navigation et Commandes Système
@@ -25,7 +26,7 @@
 
 ## Git Branch & Switch
 ```bash
-gbs() {
+gcbs() {
     if [ -z "$1" ]; then
         echo "Usage: gbs <branch-name>"
         return 1
