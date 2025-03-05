@@ -1,0 +1,137 @@
+# Guide Complet de Git Fetch
+
+## Phrase mnémotechnique
+> "**F**etch **E**xamine **T**hen **C**ommit **H**ere" (FETCH) :
+> - **F**etch : Récupère les changements distants
+> - **E**xamine : Vérifie ce qui a changé
+> - **T**hen : Puis décide
+> - **C**ommit : Valide les changements
+> - **H**ere : Localement
+
+## Qu'est-ce que git fetch ?
+`git fetch` est une commande Git qui télécharge les commits, fichiers et références depuis un dépôt distant vers votre dépôt local. Contrairement à `git pull`, `git fetch` ne fusionne pas automatiquement ces changements dans votre branche de travail.
+
+## Syntaxe de base
+```bash
+# Récupérer toutes les branches depuis tous les dépôts distants
+git fetch --all
+
+# Récupérer depuis un dépôt distant spécifique
+git fetch origin
+
+# Récupérer une branche spécifique
+git fetch origin main
+
+# Récupérer et nettoyer (supprime les références locales aux branches distantes qui n'existent plus)
+git fetch --prune
+```
+
+## Cas d'utilisation courants
+
+### 1. Vérifier les mises à jour sans fusion
+```bash
+# Étape 1 : Récupérer les changements
+git fetch origin
+
+# Étape 2 : Voir les différences
+git diff main origin/main
+
+# Étape 3 : Voir les commits
+git log main..origin/main
+```
+
+### 2. Récupérer une branche distante spécifique
+```bash
+# Récupérer une branche spécifique
+git fetch origin feature/nouvelle-fonctionnalite
+
+# Créer une branche locale basée sur la branche distante
+git checkout -b feature/nouvelle-fonctionnalite origin/feature/nouvelle-fonctionnalite
+```
+
+### 3. Nettoyer les références obsolètes
+```bash
+# Supprimer les références aux branches distantes qui n'existent plus
+git fetch --prune
+
+# Ou en utilisant l'alias plus court
+git fetch -p
+```
+
+## Options importantes
+
+1. `--all` : Récupère depuis tous les dépôts distants configurés
+2. `--prune` : Supprime les références locales aux branches distantes qui n'existent plus
+3. `--tags` : Récupère tous les tags
+4. `--force` : Force la mise à jour des références locales
+5. `--depth=<profondeur>` : Limite la profondeur de l'historique récupéré
+
+## Workflow typique avec git fetch
+
+1. **Vérification des changements distants**
+   ```bash
+   git fetch origin
+   git log HEAD..origin/main --oneline
+   ```
+
+2. **Fusion des changements (si souhaité)**
+   ```bash
+   git fetch origin
+   git merge origin/main
+   ```
+   
+   Ou en utilisant rebase :
+   ```bash
+   git fetch origin
+   git rebase origin/main
+   ```
+
+3. **Création d'une nouvelle branche depuis une branche distante**
+   ```bash
+   git fetch origin
+   git checkout -b feature/nouvelle origin/feature/nouvelle
+   ```
+
+## Bonnes pratiques
+
+1. **Utilisez régulièrement fetch**
+   - Avant de commencer à travailler
+   - Avant de créer une nouvelle branche
+   - Avant de fusionner des changements
+
+2. **Vérifiez toujours les changements**
+   ```bash
+   git fetch
+   git diff main origin/main
+   ```
+
+3. **Maintenez un dépôt propre**
+   ```bash
+   git fetch --prune
+   git remote prune origin
+   ```
+
+## Dépannage courant
+
+1. **Erreur d'authentification**
+   ```bash
+   git config --global credential.helper cache
+   ```
+
+2. **Conflit lors de la fusion**
+   ```bash
+   git fetch origin
+   git merge origin/main
+   # Résoudre les conflits
+   git add .
+   git commit -m "Résolution des conflits"
+   ```
+
+3. **Branches distantes non visibles**
+   ```bash
+   git fetch --all
+   git branch -r  # Liste les branches distantes
+   ```
+
+## Conclusion
+`git fetch` est un outil essentiel pour maintenir votre dépôt local synchronisé avec le dépôt distant tout en gardant le contrôle sur le moment où vous souhaitez intégrer ces changements. C'est une commande plus sûre que `git pull` car elle vous permet de vérifier les changements avant de les fusionner.
