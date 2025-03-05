@@ -1,0 +1,84 @@
+# Git Cherry-pick : Comment sélectionner vos commits
+
+## Qu'est-ce que git cherry-pick ?
+`git cherry-pick` permet de prendre un ou plusieurs commits spécifiques d'une branche et de les appliquer sur une autre branche. C'est comme si vous cueilliez des cerises (commits) précises sur un arbre pour les placer dans votre panier.
+
+## Syntaxe de base
+```bash
+git cherry-pick <commit-hash>         # Pour un seul commit
+git cherry-pick <hash1> <hash2>       # Pour plusieurs commits
+git cherry-pick <hash1>..<hash2>      # Pour une plage de commits (exclusif)
+git cherry-pick <hash1>^..<hash2>     # Pour une plage de commits (inclusif)
+```
+
+## Exemples d'utilisation
+
+### 1. Cherry-pick d'un seul commit
+```bash
+# Identifiez d'abord le hash du commit désiré
+git log --oneline
+
+# Exemple de résultat :
+# a123456 Fix: correction du bug de connexion
+# b789012 Feature: ajout de la page d'accueil
+# c345678 Docs: mise à jour du README
+
+# Pour appliquer le commit de correction du bug
+git cherry-pick a123456
+```
+
+### 2. Cherry-pick avec résolution de conflits
+```bash
+# Si un conflit survient pendant le cherry-pick
+git cherry-pick <commit-hash>
+# Git signalera le conflit
+
+# 1. Résolvez les conflits dans les fichiers concernés
+# 2. Ajoutez les fichiers résolus
+git add <fichiers-résolus>
+
+# 3. Continuez le cherry-pick
+git cherry-pick --continue
+
+# Ou si vous voulez annuler
+git cherry-pick --abort
+```
+
+### 3. Cherry-pick sans commit immédiat
+```bash
+# Pour ajouter les modifications dans la staging area sans créer un commit
+git cherry-pick -n <commit-hash>
+```
+
+## Cas d'utilisation courants
+
+### Quand utiliser cherry-pick ?
+1. Pour appliquer un correctif urgent sur une branche stable
+2. Pour récupérer une fonctionnalité spécifique d'une branche expérimentale
+3. Pour répliquer des modifications sur plusieurs branches de version
+4. Pour sauver des commits d'une branche qui sera supprimée
+
+## Bonnes pratiques
+
+1. **Vérifiez toujours le contenu du commit** avant de le cherry-pick :
+```bash
+git show <commit-hash>
+```
+
+2. **Documentez vos cherry-picks** dans le message de commit :
+```bash
+git cherry-pick -x <commit-hash>  # Ajoute automatiquement une référence au commit d'origine
+```
+
+3. **Évitez les cherry-picks massifs** :
+- Préférez les merges pour des ensembles importants de modifications
+- Utilisez cherry-pick pour des modifications ponctuelles et spécifiques
+
+## Points de vigilance
+- Le cherry-pick crée un nouveau commit avec un nouveau hash
+- Les commits cherry-pickés peuvent créer des duplications de code
+- Attention aux dépendances entre commits lors du cherry-pick
+- Privilégiez les merges classiques pour les flux de travail standards
+
+## Phrase mnémotechnique
+"Cherry-pick : cueillez précisément le commit qui vous intéresse"
