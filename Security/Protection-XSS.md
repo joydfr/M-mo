@@ -93,4 +93,61 @@ async function printUsername(username) {
 L'attaque XSS repose sur une mauvaise gestion des entrées utilisateur et de l'encodage des données. Adopter les bonnes pratiques ci-dessus permet de sécuriser efficacement une application web contre ces vulnérabilités.
 
 ---
+🚨 Maîtrise de l’évaluation de code en JavaScript 🚨
+❌ Éviter eval() !
 
+🔴 Problème : eval() exécute du code JavaScript à partir d’une chaîne de caractères, ouvrant la porte aux attaques XSS.
+✅ Solution : Utiliser JSON.parse() pour traiter des données JSON en toute sécurité.
+❌ Mauvais exemple (dangereux)
+
+var raw_string = '{ "nom": "Dylan", "prenom": "Bob" }';
+var forged_string = raw_string + ', alert()'; 
+
+var parsed = eval(`(${raw_string})`); // ⚠️ Fonctionne mais dangereux
+console.log(parsed.prenom); // "Bob"
+
+var danger = eval(`(${forged_string})`); // 🚨 Exécute alert() (XSS)
+
+✅ Bon exemple (sécurisé)
+
+var raw_string = '{ "nom": "Dylan", "prenom": "Bob" }';
+var forged_string = raw_string + ', alert()';
+
+var parsed = JSON.parse(raw_string); // ✅ Sécurisé
+console.log(parsed.prenom); // "Bob"
+
+var safe = JSON.parse(forged_string); // ❌ Erreur → Pas d'exécution de code malveillant
+
+❌ Éviter l’évaluation de code avec setInterval() et setTimeout() !
+
+🔴 Problème : Ces fonctions acceptent une chaîne de caractères, qui est interprétée et exécutée, permettant une injection de code.
+✅ Solution : Toujours utiliser une fonction callback au lieu d'une chaîne.
+❌ Mauvais exemple (dangereux)
+
+var message = 'Bonne année ") , alert("';
+var count = 3;
+
+var ival = setInterval(` 
+    if (count === 0) clearInterval(ival), console.log("${message}");
+    else console.log(count--);
+`, 1000); // 🚨 XSS possible !
+
+✅ Bon exemple (sécurisé)
+
+var message = 'Bonne année ") , alert("';
+var count = 3;
+
+var ival = setInterval(() => { 
+    if (count === 0) clearInterval(ival), console.log(message);
+    else console.log(count--);
+}, 1000); // ✅ Pas d’exécution de code malveillant
+
+⚠️ Autres pratiques à proscrire
+
+❌ Function('code')
+❌ .constructor('code')
+❌ setTimeout("code", time)
+
+💡 Bonne pratique : Toujours utiliser des fonctions au lieu de chaînes de caractères pour éviter l’exécution de code arbitraire.
+
+🔐 Sécuriser son JavaScript = réduire les risques XSS !
