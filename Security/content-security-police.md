@@ -1,45 +1,36 @@
-# 🔐 Mémo Visuel : Content Security Policy (CSP)
+Voici un mémo visuel pour la mise en œuvre de Content Security Policy (CSP) :
 
-## 🛡️ Qu’est-ce que CSP ?
-Le **Content Security Policy (CSP)** est une **politique de sécurité** permettant de **limiter les ressources autorisées** sur un site web.
+## Introduction à CSP 🚀
 
-🎯 **Objectif** :
-✔ Réduire les risques d’attaques XSS (Cross-Site Scripting) 🚫💻
-✔ Restreindre le chargement de scripts et autres ressources 🔍
-✔ Ajouter un niveau de protection contre les injections de code malveillant 🏰
+- **Définition** : CSP est un standard de sécurité web qui aide à protéger contre les attaques XSS (Cross-Site Scripting) en définissant une liste d'autorisations pour les ressources accessibles par un navigateur 📝.
+- **Importance** : Complète les bonnes pratiques de développement, mais ne remplace pas la correction des vulnérabilités 🚫.
+
+## Principe de CSP 📜
+
+- **Liste d'autorisations** : Définit les ressources autorisées (scripts, styles, images) pour un site web, bloquant celles non déclarées 🚫.
+- **Moindre privilège** : Restreint les contenus aux ressources fiables pour réduire les risques XSS 🔒.
+
+## Mise en œuvre de CSP 🛠️
+
+1. **En-tête HTTP** :
+
+   - **Avantages** : Permet plus de stratégies (frame-ancestors, sandbox) et une URL de rapport des violations 📊.
+   - **Méthodes** : Configuration du reverse-proxy, demande à l'hébergeur, ou via CMS/framework 📈.
+   - **Exemple** : Utiliser un plugin comme gd-security-headers pour WordPress 📦.
+
+2. **Balise ``** :
+   - **Utilisation** : Si l'en-tête HTTP n'est pas possible, ou pour des cas spécifiques 📝.
+   - **Limitation** : Ne s'applique pas aux contenus précédant la balise dans le DOM ⚠️.
+
+## Recommandations 📝
+
+- **Utiliser HTTPS** pour garantir l'intégrité des en-têtes et du corps de la réponse 🔒.
+- **Privilégier l'en-tête HTTP** pour une mise en œuvre plus complète et sécurisée 💻.
+- **Utiliser des plugins** pour faciliter la configuration dans les CMS comme WordPress ou Drupal 📈.
+
+## Stratégies Complémentaires 📈
+
+- **Multiples CSP** : Peuvent être appliquées pour renforcer la stratégie globale 🔒.
+- **Ordre d'application** : Les directives les plus strictes sont prises en compte en cas de conflit 📊.
 
 ---
-
-## ⚙️ Comment configurer CSP ?
-CSP est défini **côté serveur** via :
-📌 **En-tête HTTP** : `Content-Security-Policy`
-📌 **Balise meta** : `<meta http-equiv="Content-Security-Policy">`
-
----
-
-## 📝 Exemples de stratégies CSP
-
-1️⃣ **Autoriser uniquement les ressources de la même Origin et en HTTPS** 🔒
-```csp
-Content-Security-Policy: default-src 'self' https:;
-```
-✅ Sécurisé, limite les ressources externes
-❌ Bloque JavaScript inline et les fonctions `eval()`
-
-2️⃣ **Autoriser JavaScript inline et les fonctions d’évaluation de code** ⚠️
-```csp
-Content-Security-Policy: default-src 'self'; script-src 'unsafe-inline' 'unsafe-eval';
-```
-🚨 **DANGER** : Expose à des attaques XSS
-❌ Mauvaise pratique de sécurité
-
----
-
-## 🏆 Bonnes Pratiques CSP
-✔ **Privilégier `default-src 'self'`** pour limiter les ressources aux mêmes Origins.
-✔ **Éviter `unsafe-inline` et `unsafe-eval`** qui peuvent exécuter du code malveillant.
-✔ **Utiliser des nonce (`nonce-xxxx`) ou des hashes (`sha256-xxxx`)** pour autoriser du JavaScript spécifique.
-✔ **Tester les règles CSP en mode `Content-Security-Policy-Report-Only`** avant mise en production.
-
-🚀 **CSP est un rempart essentiel contre les attaques XSS et les injections de scripts !** 🔥
-
