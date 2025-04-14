@@ -42,3 +42,17 @@ Une **CIF** ou **Contrainte d'Intégrité Fonctionnelle** est un type d'associat
 Elle se caractérise par un 1 en cardinalité supérieur (0,1 ou 1,1) sur une des pattes de la relation. On dit alors que la relation est **porteuse d'une dépendence fonctionnelle**. Une CIF indique donc une dépendance. Une des entités de l'association est déterminée pas la connaissance d'une ou plusieurs autres entité présente dans l'association. Cette association forte et hiérarchique. Sans entité parent, il ne peut pas y avoir d'entité enfant. À ne pas confondre avec une **CIM**.
 
 Une CIF se tranforme alors lors du passage en MLD/MPD en une **clé étrangère**. Cette clé étrangère est un **champ** ajouté à la table située du côté du 1 en cardinalité maximale qui reprend le champ **clé primaire** de la table située de l’autre côté de la relation.
+
+## Cardinalités et associations CIF/CIM
+
+Les cardinalités sont des caractères (0,1,n) qui fonctionnent par couple et qui sont présents de chaque côté d'une association. Même si on l'utilise surtout au pluriel, il reste quand même possible de parler d'une cardinalité lorsqu'on évoque un côté de l'association. Grâce aux cardinalités on peut obtenir des indications très intéressantes et permettent par la suite de construire la base de données :
+
+- avec la création de clés étrangères dans le cas d'une **CIF**
+- avec la création d'une table intermédiaire dans le cas d'une **CIM**
+
+## Cardinalités et types d'associations
+
+- **Association hiérarchique** : Lorsqu'une association à une cardinalité maximale à 1 d'un côté et une cardianalité maximale à n de l'autre côté. On a une dépendance fonctionnelle (une CIF)
+- **Association non hiérachique** : Lorsqu'une association à n en cardinalité maximale de chaque côté de l'association.
+
+
