@@ -46,6 +46,27 @@ PostgreSQL présente de nombreux avantages qui en font un choix privilégié pou
 
 Ces caractéristiques font de PostgreSQL un choix idéal pour des applications allant des petits projets aux systèmes d'entreprise critiques nécessitant fiabilité, extensibilité et performances.
 
+## Cas d'usage adaptés
+
+PostgreSQL est adapté à une variété de cas d'usage, notamment :
+
+# Cas d'usage adaptés à PostgreSQL
+
+| Catégorie                      | Cas d'usage                                                                                                                                 | Raisons                                                                                  |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| **Applications géospatiales**  | • Systèmes d'information géographique (SIG)<br>• Applications de cartographie<br>• Services basés sur la localisation<br>• Analyse spatiale | Extension PostGIS offrant des fonctionnalités géospatiales complètes et performantes     |
+| **Applications financières**   | • Systèmes bancaires<br>• Trading et marchés financiers<br>• Assurances<br>• Comptabilité et facturation                                    | Intégrité transactionnelle ACID, précision des calculs, contraintes d'intégrité avancées |
+| **Big Data et analyse**        | • Entrepôts de données<br>• Applications BI/Analytics<br>• Systèmes de reporting<br>• Data lakes hybrides                                   | Capacité à gérer de grands volumes, fonctions analytiques avancées, partitionnement      |
+| **Applications critiques**     | • Systèmes médicaux<br>• Télécommunications<br>• Systèmes gouvernementaux<br>• Infrastructure critique                                      | Haute disponibilité, réplication robuste, récupération après sinistre                    |
+| **Commerce électronique**      | • Places de marché en ligne<br>• Gestion d'inventaire<br>• Systèmes de recommandation<br>• Panier d'achat & paiements                       | Performance pour les charges mixtes (lecture/écriture), gestion avancée du stock         |
+| **Applications web complexes** | • Réseaux sociaux<br>• Plateformes de contenu<br>• SaaS complexes<br>• Sites à fort trafic                                                  | Modèle flexible, JSONB pour données variables, mise à l'échelle horizontale              |
+| **IoT et télémétrie**          | • Applications industrielles<br>• Domotique<br>• Suivi de flotte<br>• Collecte de données de capteurs                                       | Ingestion de données à haut débit, partitionnement par temps, fonctions d'agrégation     |
+| **Recherche scientifique**     | • Analyses génomiques<br>• Modélisation environnementale<br>• Physique des particules<br>• Traitement d'images médicales                    | Types de données complexes, opérateurs personnalisés, indexation avancée                 |
+| **CRM et ERP**                 | • Gestion de la relation client<br>• Planification des ressources<br>• Systèmes de billetterie<br>• Gestion de projets                      | Modèle relationnel robuste, contraintes d'intégrité, transactions complexes              |
+| **Applications multi-tenant**  | • SaaS avec isolation des données<br>• Plateformes mutualisées<br>• Services cloud                                                          | Schémas multiples, Row-Level Security, vues pour isolation logique                       |
+
+PostgreSQL est particulièrement adapté aux cas d'usage nécessitant une combinaison de fiabilité, flexibilité et capacité à gérer des données complexes tout en maintenant d'excellentes performances.
+
 ### Lexique
 
 - **ACID** : ACID (atomicité, cohérence, isolation et durabilité) sont un ensemble de propriétés qui garantissent qu'une transaction informatique est exécutée de façon fiable. Dans le domaine des bases de données, une opération sur les données est appelée une transaction ou transaction informatique. Par exemple, un transfert de fonds d'un compte de banque à un autre, même s'il implique plusieurs actions comme le débit d'un compte et le crédit d'un autre, est une seule transaction.
