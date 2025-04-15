@@ -14,12 +14,6 @@ les informations devant être partagées entre les clients, comme un cache de do
 mations sur l’état de chaque session par exemple.
 PostgreSQL utilise une architecture client‑serveur. Nous ne nous connectons à PostgreSQL qu’à travers d’un protocole bien défini, nous n’accédons jamais aux fichiers de données.
 
-# Mémo : Architecture de PostgreSQL
-
-## Structure Fondamentale
-
-PostgreSQL fonctionne sur une architecture multi-processus où un processus principal (postmaster) gère plusieurs processus backend, chacun traitant une connexion client spécifique.
-
 ## Composants Principaux
 
 1. **Processus**
@@ -112,6 +106,125 @@ Les catalogues système sont des tables spéciales qui contiennent les métadonn
    - Fortement inter-reliés via des références OID
    - Essentiels pour le fonctionnement du planificateur de requêtes
 
+## Fonctionnalités Spécifiques
+
+### Types de Données Avancés
+
+PostgreSQL offre une vaste gamme de types de données au-delà des types standards SQL :
+
+1. **Types géométriques**
+
+   - **point**, **line**, **lseg**, **box**, **path**, **polygon**, **circle** : pour les données spatiales
+   - Support de PostGIS pour les SIG avancés (via extension)
+
+2. **Types pour le réseau**
+
+   - **inet**, **cidr** : pour les adresses IP et réseaux
+   - **macaddr**, **macaddr8** : pour les adresses MAC
+
+3. **Types textuels avancés**
+
+   - **text** : texte de longueur illimitée
+   - **XML** : stockage et validation de données XML
+   - **JSON**, **JSONB** : stockage et indexation de données JSON
+
+4. **Types composites**
+
+   - Chaque table définit automatiquement un type composite
+   - Types personnalisés via CREATE TYPE
+
+5. **Types pour les tableaux**
+
+   - Tout type peut être utilisé comme tableau multi-dimensionnel
+   - Indiqué par la syntaxe type[]
+
+6. **Types intervalle**
+
+   - **tsrange**, **daterange**, **int4range**, etc.
+   - Gestion naturelle des intervalles avec opérateurs spécifiques
+
+7. **Types utilisateur**
+   - Création via CREATE DOMAIN ou CREATE TYPE
+   - Extensions d'énumération (ENUM)
+
+### Héritage de Tables
+
+PostgreSQL supporte l'héritage de tables, une fonctionnalité unique parmi les SGBDR majeurs :
+
+1. **Concept fondamental**
+
+   - Une table peut hériter d'une ou plusieurs autres tables
+   - La table fille contient ses propres colonnes plus celles de la table mère
+
+2. **Utilisation**
+
+   - Déclaré via `CREATE TABLE fille () INHERITS (mere)`
+   - Les requêtes sur la table mère incluent par défaut les données des tables filles
+
+3. **Partitionnement**
+
+   - Traditionnellement utilisé pour le partitionnement avant PostgreSQL 10
+   - Remplacé par le partitionnement déclaratif mais toujours disponible
+
+4. **Contraintes et limitations**
+   - Les contraintes ne sont pas héritées automatiquement
+   - Les index doivent être créés séparément pour chaque table
+   - La mise à jour via la table parent peut être complexe
+
+### Schémas et Espaces de Noms
+
+Les schémas permettent d'organiser les objets de la base de données :
+
+1. **Fonction des schémas**
+
+   - Regroupement logique d'objets de base de données
+   - Isolation des noms d'objets
+   - Organisation des permissions
+
+2. **Schémas spéciaux**
+
+   - **public** : schéma par défaut
+   - **pg_catalog** : contient les tables système
+   - **information_schema** : vue standard SQL des métadonnées
+   - **pg_temp** : tables temporaires de la session
+
+3. **Chemin de recherche**
+
+   - Défini par `search_path`
+   - Détermine l'ordre de résolution des noms non qualifiés
+
+4. **Bonnes pratiques**
+   - Isoler les applications dans des schémas distincts
+   - Contrôler les accès par schéma
+   - Éviter de surcharger le schéma public
+
+### Extensions Disponibles
+
+PostgreSQL peut être étendu via un système d'extensions modulaire :
+
+1. **Extensions populaires**
+
+   - **PostGIS** : fonctionnalités de système d'information géographique
+   - **pg_stat_statements** : statistiques détaillées sur les requêtes exécutées
+   - **pgcrypto** : fonctions cryptographiques
+   - **uuid-ossp** : génération d'identifiants universels uniques
+   - **hstore** : stockage de paires clé-valeur
+   - **ltree** : représentation et requêtes sur des structures hiérarchiques
+   - **pg_trgm** : recherche de similarité textuelle via trigrammes
+   - **tablefunc** : fonctions retournant des tables
+   - **TimescaleDB** : optimisation pour données temporelles
+
+2. **Gestion des extensions**
+
+   - Installation via `CREATE EXTENSION`
+   - Listage avec `\dx` dans psql
+   - Mises à jour via `ALTER EXTENSION ... UPDATE`
+
+3. **Développement d'extensions**
+   - API C pour créer des extensions personnalisées
+   - Système de construction adapté (PGXS)
+   - Publication sur PGXN (PostgreSQL Extension Network)
+
 ## Lexique
 
 | Terme                 | Définition                                                                                      |
@@ -123,10 +236,14 @@ Les catalogues système sont des tables spéciales qui contiennent les métadonn
 | **Checkpoint**        | Point où toutes les données modifiées sont écrites sur disque, créant un point de cohérence     |
 | **Extension**         | Module qui ajoute des fonctionnalités à PostgreSQL sans modifier le code noyau                  |
 | **Filenode**          | Identifiant numérique associé à un objet de base de données et utilisé pour nommer les fichiers |
+| **Héritage**          | Mécanisme permettant à une table d'hériter des colonnes d'une autre table                       |
 | **Index**             | Structure de données qui accélère la récupération des données                                   |
+| **JSONB**             | Version binaire du JSON qui permet l'indexation et des opérations efficaces                     |
 | **MVCC**              | Technique permettant l'accès simultané aux données sans utiliser de verrous bloquants           |
 | **OID**               | Object IDentifier, identifiant unique attribué aux objets de la base de données                 |
+| **Partitionnement**   | Division d'une grande table en segments plus petits selon des critères définis                  |
 | **PGDATA**            | Variable d'environnement ou paramètre indiquant le répertoire de données principal              |
+| **PostGIS**           | Extension ajoutant le support pour les objets géographiques à PostgreSQL                        |
 | **Postmaster**        | Processus principal qui démarre et gère les autres processus PostgreSQL                         |
 | **Relation**          | Terme générique pour désigner tables, index, vues et autres objets                              |
 | **Schéma**            | Espace de noms contenant des objets de base de données (tables, vues, etc.)                     |
@@ -134,6 +251,7 @@ Les catalogues système sont des tables spéciales qui contiennent les métadonn
 | **Tablespace**        | Emplacement physique où sont stockées les données des tables et des index                       |
 | **Transaction**       | Séquence d'opérations traitée comme une unité indivisible                                       |
 | **Tuple**             | Terme technique pour une ligne dans une table PostgreSQL                                        |
+| **Type composite**    | Type de données défini par une liste de noms d'attributs et leurs types                         |
 | **Vacuum**            | Opération qui récupère l'espace occupé par des données obsolètes                                |
 | **WAL**               | Write-Ahead Log, journal qui enregistre les modifications avant qu'elles ne soient appliquées   |
 | **XID**               | Transaction IDentifier, identifiant unique pour chaque transaction                              |
