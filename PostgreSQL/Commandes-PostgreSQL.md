@@ -35,9 +35,10 @@ Commande	Description
 CREATE DATABASE ma_base;
 
 CREATE TABLE utilisateurs (
-    id SERIAL PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     nom VARCHAR(100),
-    email VARCHAR(100) UNIQUE
+    email VARCHAR(100) UNIQUE,
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 📥 Insertion
@@ -127,7 +128,7 @@ INSERT INTO utilisateurs (nom, email) VALUES
 
 💡 Astuce : Tu peux créer un fichier init.sql avec tout ce contenu et le versionner dans Git comme base de départ pour tous tes projets PostgreSQL.
 
----
+____
 
-Si tu veux que je t’en fasse un PDF ou que je te le mette dans un fichier `.md` prêt à l’emploi, dis-le moi !
+
 ```
