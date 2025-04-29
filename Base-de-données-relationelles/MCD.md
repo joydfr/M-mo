@@ -54,5 +54,3 @@ Les cardinalités sont des caractères (0,1,n) qui fonctionnent par couple et qu
 
 - **Association hiérarchique** : Lorsqu'une association à une cardinalité maximale à 1 d'un côté et une cardianalité maximale à n de l'autre côté. On a une dépendance fonctionnelle (une CIF)
 - **Association non hiérachique** : Lorsqu'une association à n en cardinalité maximale de chaque côté de l'association.
-
-
