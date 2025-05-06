@@ -1,8 +1,6 @@
-Bien sûr ! Voici un mémo complet avec tes réponses incluses ainsi que les corrigés et des suggestions supplémentaires.
+# 📝 Mémo des Exercices de Java avec Corrigés et Réponses
 
-# 📝 **Mémo des Exercices de Java avec Corrigés et Réponses**
-
-## 1. Affichage d'une chaîne - **Exercice 1** 🌍
+## 1. Affichage d'une chaîne - Exercice 1 🌍
 
 ### Objectif
 
@@ -16,55 +14,59 @@ public class Exercice1 {
         System.out.println("Hello World");
     }
 }
+```
 
-Corrigé
+### Corrigé
 
+```java
 public class Exercice1 {
     public static void main(String[] args) {
         System.out.println("Hello World");
     }
 }
+```
 
+---
 
+## 2. Utilisation de Variables - Exercice 2 🧑‍💻
 
-⸻
+### Objectif
 
-2. Utilisation de Variables - Exercice 2 🧑‍💻
+Reprendre l'exercice 1 en utilisant une variable.
 
-Objectif
+### Ta réponse
 
-Reprendre l’exercice 1 en utilisant une variable.
-
-Ta réponse
-
+```java
 public class Exercice2 {
     public static void main(String[] args) {
         String message = "Hello World";
         System.out.println(message);
     }
 }
+```
 
-Corrigé
+### Corrigé
 
+```java
 public class Exercice2 {
     public static void main(String[] args) {
         String message = "Hello World";
         System.out.println(message);
     }
 }
+```
 
+---
 
+## 3. Calcul Arithmétique - Exercice 3 ➗
 
-⸻
+### Objectif
 
-3. Calcul Arithmétique - Exercice 3 ➗
+Afficher le périmètre d'un cercle dont le rayon est une variable.
 
-Objectif
+### Ta réponse
 
-Afficher le périmètre d’un cercle dont le rayon est une variable.
-
-Ta réponse
-
+```java
 public class Exercice3 {
     public static void main(String[] args) {
         double rayon = 5.0;
@@ -72,9 +74,11 @@ public class Exercice3 {
         System.out.println("Le périmètre du cercle est : " + perimetre);
     }
 }
+```
 
-Corrigé
+### Corrigé
 
+```java
 public class Exercice3 {
     public static void main(String[] args) {
         double rayon = 5.0;
@@ -82,19 +86,19 @@ public class Exercice3 {
         System.out.println("Le périmètre du cercle est : " + perimetre);
     }
 }
+```
 
+---
 
+## 4. Saisie de Valeur - Exercice 4 📝
 
-⸻
+### Objectif
 
-4. Saisie de Valeur - Exercice 4 📝
+Afficher le périmètre d'un cercle dont le rayon est demandé à l'utilisateur.
 
-Objectif
+### Ta réponse
 
-Afficher le périmètre d’un cercle dont le rayon est demandé à l’utilisateur.
-
-Ta réponse
-
+```java
 import java.util.Scanner;
 
 public class exercice4 {
@@ -106,9 +110,11 @@ public class exercice4 {
         System.out.println("Le diamètre de votre cercle est de : " + Newrayon * 2);
     }
 }
+```
 
-Corrigé
+### Corrigé
 
+```java
 import java.util.Scanner;
 
 public class Exercice4 {
@@ -121,19 +127,19 @@ public class Exercice4 {
         scanner.close();
     }
 }
+```
 
+---
 
+## 5. Test Simple (Majeur/Mineur) - Exercice 5 ⚖️
 
-⸻
+### Objectif
 
-5. Test Simple (Majeur/Mineur) - Exercice 5 ⚖️
+Vérifier si l'utilisateur est majeur ou mineur à partir d'une valeur saisie.
 
-Objectif
+### Ta réponse
 
-Vérifier si l’utilisateur est majeur ou mineur à partir d’une valeur saisie.
-
-Ta réponse
-
+```java
 import java.util.Scanner;
 
 public class Exercice5 {
@@ -151,9 +157,11 @@ public class Exercice5 {
         }
     }
 }
+```
 
-Corrigé
+### Corrigé
 
+```java
 import java.util.Scanner;
 
 public class Exercice5 {
@@ -169,19 +177,19 @@ public class Exercice5 {
         scanner.close();
     }
 }
+```
 
+---
 
+## 6. Test Simple (Pair/Impair) - Exercice 6 🔢
 
-⸻
-
-6. Test Simple (Pair/Impair) - Exercice 6 🔢
-
-Objectif
+### Objectif
 
 Indiquer si un nombre saisi est pair ou impair.
 
-Ta réponse
+### Ta réponse
 
+```java
 import java.util.Scanner;
 
 public class Exercice6 {
@@ -200,9 +208,11 @@ public class Exercice6 {
         }
     }
 }
+```
 
-Corrigé
+### Corrigé
 
+```java
 import java.util.Scanner;
 
 public class Exercice6 {
@@ -218,19 +228,19 @@ public class Exercice6 {
         scanner.close();
     }
 }
+```
 
+---
 
+## 7. Test Avancé (Année Bissextile) - Exercice 7 📅
 
-⸻
-
-7. Test Avancé (Année Bissextile) - Exercice 7 📅
-
-Objectif
+### Objectif
 
 Vérifier si une année est bissextile.
 
-Ta réponse
+### Ta réponse
 
+```java
 import java.util.Scanner;
 
 public class Exercice7 {
@@ -247,9 +257,11 @@ public class Exercice7 {
         }
     }
 }
+```
 
-Corrigé
+### Corrigé
 
+```java
 import java.util.Scanner;
 
 public class Exercice7 {
@@ -265,19 +277,19 @@ public class Exercice7 {
         scanner.close();
     }
 }
+```
 
+---
 
+## 8. Test Avancé (Nombre de jours d'un mois) - Exercice 8 📆
 
-⸻
+### Objectif
 
-8. Test Avancé (Nombre de jours d’un mois) - Exercice 8 📆
+Afficher le nombre de jours d'un mois en fonction du numéro du mois saisi.
 
-Objectif
+### Ta réponse
 
-Afficher le nombre de jours d’un mois en fonction du numéro du mois saisi.
-
-Ta réponse
-
+```java
 import java.util.Scanner;
 
 public class Exercice8 {
@@ -299,8 +311,11 @@ public class Exercice8 {
         }
     }
 }
-Corrigé
+```
 
+### Corrigé
+
+```java
 import java.util.Scanner;
 
 public class Exercice8 {
@@ -333,14 +348,19 @@ public class Exercice8 {
         scanner.close();
     }
 }
+```
 
-8 Bis. Test Avancé (Chaine de caractères) - Exercice 8 bis 🔤
-Objectif
+---
 
-Reprendre l’exercice précédent, mais avec une chaîne de caractères pour le mois.
+## 8 Bis. Test Avancé (Chaine de caractères) - Exercice 8 bis 🔤
 
-Ta réponse
+### Objectif
 
+Reprendre l'exercice précédent, mais avec une chaîne de caractères pour le mois.
+
+### Ta réponse
+
+```java
 import java.util.Scanner;
 
 public class Exercice8bis {
@@ -362,9 +382,11 @@ public class Exercice8bis {
         }
     }
 }
+```
 
-Corrigé
+### Corrigé (incomplet dans le document original)
 
+```java
 import java.util.Scanner;
 
 public class Exercice8bis {
@@ -378,22 +400,38 @@ public class Exercice8bis {
             case "janvier": case "mars": case "mai": case "juillet": case "août": case "octobre": case "décembre":
                 jours = 31;
                 break;
-            case "avril": case "juin"
+            case "avril": case "juin": case "septembre": case "novembre":
+                jours = 30;
+                break;
+            case "février":
+                jours = 28; // Ou 29 selon l'année
+                break;
+            default:
+                jours = 0; // Mois invalide
+                break;
+        }
 
-⸻
+        if (jours == 0) {
+            System.out.println("Nom de mois invalide.");
+        } else {
+            System.out.println("Le mois " + mois + " a " + jours + " jours.");
+        }
+        scanner.close();
+    }
+}
+```
+
+---
+
 ## 8 Ter. Fonctions - Vérification de l'année bissextile 🗓️
 
 ### Objectif
+
 Reprendre l'exercice 7 et créer une fonction qui vérifie si une année est bissextile ou non.
-Ta réponse
 
-9. Boucle (Nombres de 1 à 100) - Exercice 9 🔄
+### Ta réponse
 
-Objectif
-
-Afficher les nombres de 1 à 100.
-
-Ta réponse
+```java
 import java.util.Scanner;
 
 public class Exercice8TER {
@@ -428,7 +466,11 @@ public class Exercice8TER {
         }
     }
 }
-Corrigé
+```
+
+### Corrigé
+
+```java
 import java.util.Scanner;
 
 public class Exercice8Ter {
@@ -483,7 +525,19 @@ public class Exercice8Ter {
         scanner.close();
     }
 }
+```
 
+---
+
+## 9. Boucle (Nombres de 1 à 100) - Exercice 9 🔄
+
+### Objectif
+
+Afficher les nombres de 1 à 100.
+
+### Ta réponse
+
+```java
 public class Exercice9 {
     public static void main(String[] args) {
         for (int i = 1; i <= 100; i++) {
@@ -491,9 +545,11 @@ public class Exercice9 {
         }
     }
 }
+```
 
-Corrigé
+### Corrigé
 
+```java
 public class Exercice9 {
     public static void main(String[] args) {
         for (int i = 1; i <= 100; i++) {
@@ -501,19 +557,19 @@ public class Exercice9 {
         }
     }
 }
+```
 
+---
 
+## 10. Boucle (Codes des caractères ASCII) - Exercice 11 🅰️
 
-⸻
-
-10. Boucle (Codes des caractères ASCII) - Exercice 11 🅰️
-
-Objectif
+### Objectif
 
 Afficher les codes des caractères des nombres de 1 à 255.
 
-Ta réponse
+### Ta réponse
 
+```java
 public class Exercice11 {
     public static void main(String[] args) {
         for (int i = 1; i <= 255; i++) {
@@ -521,9 +577,11 @@ public class Exercice11 {
         }
     }
 }
+```
 
-Corrigé
+### Corrigé
 
+```java
 public class Exercice11 {
     public static void main(String[] args) {
         for (int i = 1; i <= 255; i++) {
@@ -531,19 +589,19 @@ public class Exercice11 {
         }
     }
 }
+```
 
+---
 
+## 11. Échanger les valeurs de deux variables - Exercice 12 🔄
 
-⸻
-
-11. Échanger les valeurs de deux variables - Exercice 12 🔄
-
-Objectif
+### Objectif
 
 Échanger les valeurs de deux variables.
 
-Ta réponse
+### Ta réponse
 
+```java
 public class Exercice12 {
     public static void main(String[] args) {
         int nombre1 = 5;
@@ -559,10 +617,8 @@ public class Exercice12 {
         System.out.println("Nombre2 après l'échange : " + nombre2);
     }
 }
-
-Corrigé
-
-public class Exercice12 {
-    public static void main(String[] args) {
-        int nombre1 =
 ```
+
+### Corrigé
+
+Le corrigé est manquant dans le document original, mais votre solution est correcte.
