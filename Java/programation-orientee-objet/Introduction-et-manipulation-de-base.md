@@ -350,3 +350,135 @@ public class Bibliotheque {
 ## Phrase technique à retenir
 
 **"La programmation orientée objet encapsule les données et les comportements dans des entités cohésives appelées objets, permettant ainsi de modéliser les relations du monde réel à travers l'héritage, le polymorphisme et l'abstraction, ce qui favorise la réutilisation du code et réduit la complexité des systèmes."**
+
+## Fonctionnelle
+
+### 🧾 Définition
+
+La programmation fonctionnelle est un paradigme de programmation basé sur l’utilisation de fonctions pures et l’absence d’effets de bord. Elle considère les calculs comme l’évaluation de fonctions mathématiques et évite l’état mutable et les données partagées.
+
+⸻
+
+### ✨ Caractéristiques principales
+
+- 📌 Fonctions pures : même entrée → même sortie, sans effet de bord.
+- 🔁 Immutabilité : les données ne changent pas après leur création.
+- 🔄 Recursion : préférée aux boucles classiques (for, while).
+- 🧱 First-class functions : les fonctions sont des valeurs (on peut les passer en paramètres, les retourner, etc.).
+- 📚 Évaluation paresseuse (lazy evaluation) : calcul des résultats uniquement lorsque nécessaire.
+
+⸻
+
+### 🧪 Exemple en Java : Gestion d’une bibliothèque
+
+Java n’est pas un langage purement fonctionnel, mais il permet un style fonctionnel depuis Java 8 avec les lambdas et les streams :
+
+```java
+import java.util.*;
+import java.util.stream.*;
+
+public class Bibliotheque {
+
+    public static void main(String[] args) {
+        List<Livre> livres = Arrays.asList(
+            new Livre("1984", "George Orwell", true),
+            new Livre("Le Meilleur des mondes", "Aldous Huxley", false),
+            new Livre("Fahrenheit 451", "Ray Bradbury", true)
+        );
+
+        List<String> titresDisponibles = livres.stream()
+            .filter(Livre::isDisponible)  // fonction pure
+            .map(Livre::getTitre)         // transformation immuable
+            .collect(Collectors.toList());
+
+        titresDisponibles.forEach(System.out::println);
+    }
+}
+
+class Livre {
+    private String titre;
+    private String auteur;
+    private boolean disponible;
+
+    public Livre(String titre, String auteur, boolean disponible) {
+        this.titre = titre;
+        this.auteur = auteur;
+        this.disponible = disponible;
+    }
+
+    public String getTitre() { return titre; }
+    public boolean isDisponible() { return disponible; }
+}
+
+
+```
+
+⸻
+
+### ⚔️ Comparaison avec d’autres paradigmes
+
+Paradigme État mutable Utilise des objets Contrôle de flux Fonctions comme 1ère classe
+Fonctionnel 🚫 Non 🚫 Non ✅ Oui (via recursion) ✅ Oui
+Procédural ✅ Oui 🚫 Non ✅ Oui 🚫 Non
+Orienté objet ✅ Oui ✅ Oui ✅ Oui 🚫 Non
+Impératif ✅ Oui 🚫 Variable ✅ Oui 🚫 Non
+
+⸻
+
+### ✅ Avantages
+
+- 🔒 Moins de bugs liés aux effets de bord
+- 🔁 Code plus prévisible et testable
+- 🧩 Programmation modulaire et composable
+- 🚀 Parallélisation facilitée
+
+⸻
+
+❌ Inconvénients
+
+- 🧠 Courbe d’apprentissage plus élevée
+- 🐌 Moins performant dans certains cas (recursion vs boucles)
+- 📏 Moins naturel en Java, langage non-fonctionnel pur
+
+⸻
+
+### 🧩 Phrase technique à retenir
+
+En programmation fonctionnelle, le code est une suite de transformations immuables sur des données, exprimées par des fonctions pures sans effet de bord.
+
+⸻
+
+### 🧠 Test rapide : Quiz de vérification
+
+- 1. Qu’est-ce qu’une fonction pure ?
+  - **_Oui, Livre::isDisponible est bien une fonction pure :
+    Elle ne modifie rien, elle lit simplement une donnée (la disponibilité).
+    Elle respecte donc le principe “même entrée → même sortie”._**
+- 2. Pourquoi la programmation fonctionnelle facilite-t-elle la programmation parallèle ?
+  - **_La programmation fonctionnelle facilite la parallélisation car les fonctions pures ne modifient pas l’état global, ce qui permet d’exécuter plusieurs fonctions en parallèle sans risque de conflit ou de bug lié à des accès concurrents._**
+- 3. Donne un avantage et un inconvénient de ce paradigme.
+
+  - ✅ Avantage :
+
+    - **_Code plus prévisible et testable
+      Les fonctions pures permettent d’isoler facilement la logique et de tester sans configuration complexe, car elles ne dépendent pas d’un état externe._**
+
+  - ❌ Inconvénient :
+
+  - **_Moins performant dans certains cas
+    Par exemple, la récursion (souvent utilisée à la place des boucles) peut consommer plus de mémoire et être moins efficace, surtout sans optimisation comme la récursion terminale._**
+
+- 4. Dans l’exemple Java, quelle méthode assure l’absence d’effet de bord ?
+
+  - **_La méthode qui assure l’absence d’effet de bord, c’est Livre::isDisponible._**
+
+    - 👉 Pourquoi ?
+      - Elle ne modifie rien.
+      - Elle renvoie toujours la même valeur pour un livre donné.
+      - Elle n’interagit pas avec le monde extérieur (pas d’affichage, pas de fichiers, pas de saisie utilisateur, etc.).
+
+- 5. Quelle différence majeure entre la programmation fonctionnelle et orientée objet ?
+  - **_La programmation orientée objet repose sur la modélisation du monde avec des objets qui possèdent des états (attributs) et des comportements (méthodes)._**
+  - **_La programmation fonctionnelle, elle, modélise le programme comme une suite de fonctions qui transforment des données immuables, sans modifier l’état._**
+
+⸻
