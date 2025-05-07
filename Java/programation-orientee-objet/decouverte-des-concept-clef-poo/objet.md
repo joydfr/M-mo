@@ -1,12 +1,13 @@
-🧠 Mémo POO – Les Objets
+# 🧠 Mémo POO – Les Objets
 
-🧾 Définition
+## 🧾 Définition
 
 Un objet est une instance concrète d’une classe. C’est une entité créée à partir d’un modèle (la classe), qui possède ses propres valeurs pour les attributs définis par la classe, et peut exécuter ses méthodes.
 
 ⸻
 
-⭐ Caractéristiques principales
+## ⭐ Caractéristiques principales
+
 • Un objet est unique : il a son propre état (valeurs d’attributs).
 • Il est créé à partir d’une classe avec le mot-clé new en Java.
 • Il peut interagir avec d’autres objets.
@@ -17,8 +18,9 @@ Un objet est une instance concrète d’une classe. C’est une entité créée 
 
 ⸻
 
-📚 Exemple en Java : Objets de livres
+## 📚 Exemple en Java : Objets de livres
 
+```Java
 public class Livre {
 String titre;
 String auteur;
@@ -44,29 +46,32 @@ Livre livre2 = new Livre("Le Petit Prince", "Antoine de Saint-Exupéry");
     }
 
 }
+```
 
 ⸻
 
-✅ Avantages
-• Représente des entités concrètes de manière claire.
-• Permet de manipuler des données et des comportements ensemble.
-• Favorise la réutilisation et l’organisation du code.
+## ✅ Avantages
+
+- Représente des entités concrètes de manière claire.
+- Permet de manipuler des données et des comportements ensemble.
+- Favorise la réutilisation et l’organisation du code.
 
 ⸻
 
-❌ Inconvénients
-• Peut entraîner une consommation mémoire importante si trop d’objets sont créés.
-• Leur gestion nécessite une bonne conception en amont.
+## ❌ Inconvénients
+
+- Peut entraîner une consommation mémoire importante si trop d’objets sont créés.
+- Leur gestion nécessite une bonne conception en amont.
 
 ⸻
 
-💡 Phrase technique à retenir
+## 💡 Phrase technique à retenir
 
 Un objet est une instance vivante et indépendante d’une classe.
 
 ⸻
 
-🧪 Récapitulatif – Quiz sur les Objets
+## 🧪 Récapitulatif – Quiz sur les Objets
 
 1. Qu’est-ce qu’un objet en POO ?
 
