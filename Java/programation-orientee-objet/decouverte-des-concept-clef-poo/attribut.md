@@ -1,12 +1,13 @@
-🧠 Mémo POO – Les Attributs
+# 🧠 Mémo POO – Les Attributs
 
-🧾 Définition
+## 🧾 Définition
 
 Un attribut est une variable définie dans une classe, qui représente une caractéristique d’un objet. Chaque objet a ses propres valeurs pour ces attributs.
 
 ⸻
 
-⭐ Caractéristiques principales
+## ⭐ Caractéristiques principales
+
 • Un attribut appartient à la classe, mais sa valeur est propre à chaque objet.
 • Il définit l’état de l’objet.
 • Il peut être public, privé ou protégé (modificateurs d’accès).
@@ -14,8 +15,9 @@ Un attribut est une variable définie dans une classe, qui représente une carac
 
 ⸻
 
-📚 Exemple en Java
+## 📚 Exemple en Java
 
+```java
 public class Livre {
 // Attributs
 String titre;
@@ -30,31 +32,34 @@ boolean estDisponible;
     }
 
 }
+```
 
 Ici, titre, auteur et estDisponible sont des attributs de la classe Livre.
 
 ⸻
 
-✅ Avantages
-• Permet de modéliser les données spécifiques à chaque objet.
-• Sépare l’état des objets de leurs comportements.
-• Peut être contrôlé via des méthodes (getters/setters) pour assurer l’encapsulation.
+## ✅ Avantages
+
+- Permet de modéliser les données spécifiques à chaque objet.
+- Sépare l’état des objets de leurs comportements.
+- Peut être contrôlé via des méthodes (getters/setters) pour assurer l’encapsulation.
 
 ⸻
 
 ❌ Inconvénients
-• Mal utilisés, ils peuvent rendre le code difficile à maintenir.
-• Leur accès direct peut casser l’encapsulation si mal protégé.
+
+- Mal utilisés, ils peuvent rendre le code difficile à maintenir.
+- Leur accès direct peut casser l’encapsulation si mal protégé.
 
 ⸻
 
-💡 Phrase technique à retenir
+## 💡 Phrase technique à retenir
 
 Un attribut est une variable membre d’une classe, qui stocke l’état d’un objet.
 
 ⸻
 
-🧪 Récapitulatif – Quiz sur les Attributs
+## 🧪 Récapitulatif – Quiz sur les Attributs
 
 1. Qu’est-ce qu’un attribut en POO ?
 
@@ -98,5 +103,3 @@ Réponse correcte :
 Pour différencier l’attribut de la variable passée en paramètre (qui porte souvent le même nom).
 
 ⸻
-
-Souhaites-tu qu’on enchaîne avec les méthodes, ou que je t’aide à relier tous ces mémos dans un seul fichier bien structuré ?
