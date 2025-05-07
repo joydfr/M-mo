@@ -1,7 +1,3 @@
-Parfait Jody ! Voici le mémo en Markdown sur les méthodes en POO, avec un exemple en Java, les avantages, les inconvénients, une phrase technique à retenir et un quiz corrigé — tout prêt à être ajouté à ton document.
-
-⸻
-
 🧠 Mémo POO – Les Méthodes
 
 🧾 Définition
@@ -20,6 +16,64 @@ Une méthode est une fonction définie dans une classe qui décrit un comporteme
 • un type de retour (ou void)
 • des paramètres (ou aucun)
 • Elle peut être appelée via un objet (ex. monObjet.maMethode();).
+
+⸻
+
+🔐 Les modificateurs d’accès (public, private, protected)
+
+Les modificateurs d’accès contrôlent la visibilité d’une méthode ou d’un attribut, c’est-à-dire depuis où ils peuvent être utilisés.
+
+🔹 public
+• Accès autorisé partout : dans toutes les classes, peu importe le package.
+• À utiliser pour : les méthodes destinées à être utilisées en dehors de la classe (API, interface publique d’un objet).
+
+Exemple :
+
+public void afficherInfos() {
+System.out.println("Titre : " + titre);
+}
+
+On peut appeler cette méthode depuis le programme principal ou d’autres classes.
+
+⸻
+
+🔸 private
+• Accès limité à la classe elle-même.
+• À utiliser pour : protéger l’intérieur d’un objet, comme les attributs ou les méthodes utilitaires internes.
+• Oblige à passer par des méthodes publiques (getters/setters) → encapsulation.
+
+Exemple :
+
+private boolean estDisponible;
+
+public boolean isDisponible() {
+return estDisponible;
+}
+
+estDisponible ne peut être lu que via isDisponible().
+
+⸻
+
+🟢 protected
+• Accès autorisé à la classe elle-même, ses sous-classes, et les classes du même package.
+• À utiliser pour : préparer une classe à l’héritage, tout en protégeant l’accès externe.
+
+Exemple :
+
+protected void verifierDisponibilite() {
+System.out.println("Vérification de la disponibilité...");
+}
+
+Cette méthode pourra être appelée dans une classe qui hérite de Livre, même si elle est dans un autre fichier.
+
+⸻
+
+🗂️ Résumé en tableau
+
+Modificateur Visible depuis… Utilisation recommandée
+public Toutes les classes (même autres packages) Interface publique (API)
+private Classe elle-même uniquement Sécurisation des données, encapsulation
+protected Classe + sous-classes + classes du même package Héritage, accès contrôlé aux extensions
 
 ⸻
 
@@ -114,7 +168,3 @@ Cela signifie que la méthode ne retourne aucune valeur.
 Réponse correcte :
 
 Une méthode est liée à un objet (ou à une classe), alors qu’une fonction peut être utilisée seule, hors du contexte d’une classe.
-
-⸻
-
-Souhaites-tu que je regroupe tous les mémos (classe, objet, attribut, méthode) en un seul document bien structuré ?
