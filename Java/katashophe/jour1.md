@@ -93,3 +93,45 @@ class Kata {
 - String.valueOf(num) est robuste : il gère aussi bien les primitifs (int, float, etc.) que les objets, y compris null (en retournant "null" plutôt qu’une exception).
 - C’est une méthode claire et lisible : elle exprime exactement l’intention de conversion d’un nombre en chaîne de caractères.
 - Elle est recommandée par Oracle dans la doc officielle Java.
+
+## Kata 4
+
+### Consigne
+
+- Complete the solution so that it reverses the string passed into it.
+
+```bash
+'world'  =>  'dlrow'
+'word'   =>  'drow'
+```
+
+### My solution
+
+```java
+public class Kata {
+
+  public static String solution(String str) {
+    // Your code here...
+    String reversedStr ="";
+
+    for (int i = 0; i < str.length(); i++){
+      reversedStr = str.charAt(i) + reversedStr;
+    }
+
+    return reversedStr;
+  }
+
+}
+```
+
+### Best pratique
+
+```java
+public class Kata {
+
+  public static String solution(String str) {
+    return new StringBuilder(str).reverse().toString();
+  }
+
+}
+```
