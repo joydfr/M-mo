@@ -152,3 +152,48 @@ Kata.makeNegative(0);  // return 0
 
 - The number can be negative already, in which case no change is required.
 - Zero (0) is not checked for any specific sign. Negative zeros make no mathematical sense.
+
+### My solution
+
+```java
+
+public class Kata {
+
+  public static int makeNegative(final int x) {
+
+    if (x >= 0)
+    {
+      return x * -1;
+
+    }
+    else return x;
+  }
+
+}
+```
+
+### Best pratice
+
+```java
+import static java.lang.Math.abs;
+
+public class Kata {
+
+  public static int makeNegative(final int x) {
+    return -abs(x);
+  }
+
+}
+```
+
+#### Or
+
+```java
+public class Kata {
+
+  public static int makeNegative(final int x) {
+      return (x < 0) ? x : -x;
+  }
+
+}
+```
