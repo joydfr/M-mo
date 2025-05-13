@@ -119,3 +119,52 @@ public class Positive{
     }
 }
 ```
+
+## Kata 9
+
+### Consigne
+
+Write a function that accepts a non-negative integer n and a string s as parameters, and returns a string of s repeated exactly n times.
+
+Write a function that accepts a non-negative integer n and a string s as parameters, and returns a string of s repeated exactly n times.
+
+```bash
+6, "I"     -> "IIIIII"
+5, "Hello" -> "HelloHelloHelloHelloHello"
+```
+
+### My solution
+
+```java
+class Solution {
+  static String repeatStr(int repeat, String string) {
+    return string.repeat(repeat);
+  }
+}
+```
+
+### Best pratice
+
+```java
+class Solution {
+  static String repeatStr(int repeat, String string) {
+    return string.repeat(repeat);
+  }
+}
+```
+
+#### Or
+
+```java
+public class Solution {
+    public static String repeatStr(final int repeat, final String string) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < repeat; i++) {
+            sb.append(string);
+        }
+
+        return sb.toString();
+    }
+}
+```
