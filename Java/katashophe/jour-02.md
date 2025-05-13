@@ -1,0 +1,398 @@
+# kata 6
+
+## Consigne
+
+Very simple, given a number (integer / decimal / both depending on the language), find its opposite (additive inverse).
+
+Examples:
+
+```bash
+1: -1
+14: -14
+-34: 34
+```
+
+### My solution
+
+```java
+
+public class Kata
+    {
+        public static int opposite(int number)
+        {
+            // your code here
+
+            return -number;
+        }
+    }
+
+```
+
+### Best pratice
+
+```java
+public class Kata
+    {
+        public static int opposite(int number)
+        {
+            return -number;
+        }
+    }
+```
+
+## kata 7
+
+### Consigne
+
+Complete the method that takes a boolean value and return a "Yes" string for true, or a "No" string for false.
+
+### My solution
+
+```java
+class YesOrNo
+{
+  public static String boolToWord(boolean b)
+  {
+    //TODO
+   return (b == true) ? "Yes": "No";
+
+  }
+
+}
+```
+
+### Best pratice
+
+```java
+
+class YesOrNo
+{
+  public static String boolToWord(boolean b)
+  {
+    return b ? "Yes" : "No";
+  }
+
+}
+```
+
+## Kata 8
+
+### Consigne
+
+You get an array of numbers, return the sum of all of the positives ones.
+Example
+
+    [1, -4, 7, 12] => 1+7+12=20 1 + 7 + 12 = 20 1+7+12=20
+
+Note
+
+If there is nothing to sum, the sum is default to 0.
+
+### My solution
+
+```java
+public class Positive{
+
+  public static int sum(int[] arr){
+  int sum = 0;
+   for ( int i : arr) {
+
+     if (i >= 0)
+     {
+       sum = sum + i;
+
+     }
+      }
+     return sum;
+  }
+
+}
+```
+
+### Best pratice
+
+```java
+import java.util.Arrays;
+public class Positive{
+    public static int sum(int[] arr){
+        return Arrays.stream(arr).filter(v -> v > 0).sum();
+    }
+}
+```
+
+## Kata 9
+
+### Consigne
+
+Write a function that accepts a non-negative integer n and a string s as parameters, and returns a string of s repeated exactly n times.
+
+Write a function that accepts a non-negative integer n and a string s as parameters, and returns a string of s repeated exactly n times.
+
+```bash
+6, "I"     -> "IIIIII"
+5, "Hello" -> "HelloHelloHelloHelloHello"
+```
+
+### My solution
+
+```java
+class Solution {
+  static String repeatStr(int repeat, String string) {
+    return string.repeat(repeat);
+  }
+}
+```
+
+### Best pratice
+
+```java
+class Solution {
+  static String repeatStr(int repeat, String string) {
+    return string.repeat(repeat);
+  }
+}
+```
+
+#### Or
+
+```java
+public class Solution {
+    public static String repeatStr(final int repeat, final String string) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < repeat; i++) {
+            sb.append(string);
+        }
+
+        return sb.toString();
+    }
+}
+```
+
+## Kata 10
+
+### Consigne
+
+It's pretty straightforward. Your goal is to create a function that removes the first and last characters of a string. You're given one parameter, the original string. You don't have to worry about strings with less than two characters.
+
+### My solution
+
+```java
+public class RemoveChars {
+    public static String remove(String str) {
+
+        // your code here
+      return str.substring(1, str.length() - 1);
+    }
+}
+```
+
+### Best pratice
+
+```java
+public class RemoveChars {
+    public static String remove(String str) {
+        return str.substring(1, str.length() - 1);
+    }
+}
+```
+
+## Kata 11
+
+### Consigne
+
+Complete the square sum function so that it squares each number passed into it and then sums the results together.
+
+For example, for [1, 2, 2] it should return 9 because9 1^2+2^2+2^2=9.
+
+### My solution
+
+```java
+public class Kata
+ {
+  public static int squareSum(int[] n)
+  {
+   //Your Code
+    int sum = 0 ;
+
+    for (int i : n )
+    {
+      sum = sum + (i * i );
+
+    }
+    return sum;
+  }
+ }
+```
+
+### Best pratice
+
+```java
+public class Kata {
+    public static int squareSum(int[] numbers) {
+    int sum = 0;
+    for (int n : numbers) {
+        sum += n * n;
+    }
+
+    return sum;
+    }
+ }
+```
+
+#### Or
+
+```java
+import java.util.Arrays;
+
+public class Kata {
+  public static int squareSum(int[] xs) {
+    return Arrays.stream(xs).map(x -> x * x).sum();
+  }
+}
+```
+
+## Kata 12
+
+### Consigne
+
+Given an array of integers your solution should find the smallest integer.
+
+For example:
+
+    Given [34, 15, 88, 2] your solution will return 2
+    Given [34, -345, -1, 100] your solution will return -345
+
+You can assume, for the purpose of this kata, that the supplied array will not be empty.
+
+### My solution
+
+```java
+public class SmallestIntegerFinder {
+    public static int findSmallestInt(int[] args) {
+      int min = args[0];
+
+    for (int i = 1; i < args.length; i++) {
+      min = Math.min(min, args[i]);
+
+    }
+        return min;
+    }
+}
+```
+
+### Best pratique
+
+```java
+import java.util.stream.IntStream;
+
+public class SmallestIntegerFinder {
+    public static int findSmallestInt(int[] args) {
+        return IntStream.of(args).min().getAsInt();
+    }
+}
+```
+
+#### OR
+
+```java
+import java.util.Arrays;
+public class SmallestIntegerFinder {
+    public static int findSmallestInt(int[] args) {
+        Arrays.sort(args);
+        return args[0];
+    }
+}
+```
+
+## Kata 13
+
+### Consigne
+
+We need a function that can transform a string into a number. What ways of achieving this do you know?
+
+Note: Don't worry, all inputs will be strings, and every string is a perfectly valid representation of an integral number.
+
+Examples
+
+```bash
+"1234" --> 1234
+"605"  --> 605
+"1405" --> 1405
+"-7" --> -7
+```
+
+### My solution
+
+```java
+public class StringToNumber {
+  public static int stringToNumber(String str) {
+    //TODO: Convert str into a number
+    int num = Integer.valueOf(str);
+    return num;
+  }
+}
+```
+
+### Best pratique
+
+```java
+public class StringToNumber {
+  public static int stringToNumber(String str) {
+    return Integer.parseInt(str);
+  }
+}
+```
+
+#### Or
+
+```java
+public class StringToNumber {
+  public static int stringToNumber(String str) {
+    return Integer.valueOf(str);
+  }
+}
+```
+
+## Kata 14
+
+### Consigne
+
+Summation
+
+Write a program that finds the summation of every number from 1 to num (both inclusive). The number will always be a positive integer greater than 0. Your function only needs to return the result, what is shown between parentheses in the example below is how you reach that result and it's not part of it, see the sample tests.
+
+For example (Input -> Output):
+
+```bash
+2 -> 3 (1 + 2)
+8 -> 36 (1 + 2 + 3 + 4 + 5 + 6 + 7 + 8)
+```
+
+### My solution
+
+```java
+public class GrassHopper {
+
+    public static int summation(int n) {
+      int sum = 0;
+      for (int num = 0 ; num <= n ; num ++)
+      {
+        sum = sum + num;
+      }
+        return sum;
+    }
+}
+```
+
+### Best pratique
+
+```java
+public class GrassHopper {
+
+    public static int summation(int n) {
+
+        return  n*(n+1)/2;
+    }
+}
+```
