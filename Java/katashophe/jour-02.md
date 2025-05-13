@@ -196,3 +196,60 @@ public class RemoveChars {
     }
 }
 ```
+
+## Kata 11
+
+### Consigne
+
+Complete the square sum function so that it squares each number passed into it and then sums the results together.
+
+For example, for [1, 2, 2] it should return 9 because9 1^2+2^2+2^2=9.
+
+### My solution
+
+```java
+public class Kata
+ {
+  public static int squareSum(int[] n)
+  {
+   //Your Code
+    int sum = 0 ;
+
+    for (int i : n )
+    {
+      sum = sum + (i * i );
+
+    }
+    return sum;
+  }
+ }
+```
+
+### Best pratice
+
+```java
+public class Kata {
+    public static int squareSum(int[] numbers) {
+    int sum = 0;
+    for (int n : numbers) {
+        sum += n * n;
+    }
+
+    return sum;
+    }
+ }
+```
+
+#### Or
+
+```java
+import java.util.Arrays;
+
+public class Kata {
+  public static int squareSum(int[] xs) {
+    return Arrays.stream(xs).map(x -> x * x).sum();
+  }
+}
+```
+
+## Kata 12
