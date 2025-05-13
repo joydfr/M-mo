@@ -39,3 +39,38 @@ public class Kata
         }
     }
 ```
+
+## kata 7
+
+### Consigne
+
+Complete the method that takes a boolean value and return a "Yes" string for true, or a "No" string for false.
+
+### My solution
+
+```java
+class YesOrNo
+{
+  public static String boolToWord(boolean b)
+  {
+    //TODO
+   return (b == true) ? "Yes": "No";
+
+  }
+
+}
+```
+
+### Best pratice
+
+```java
+
+class YesOrNo
+{
+  public static String boolToWord(boolean b)
+  {
+    return b ? "Yes" : "No";
+  }
+
+}
+```
