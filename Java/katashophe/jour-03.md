@@ -331,3 +331,53 @@ public class Solution {
   }
 }
 ```
+
+## kata 24
+
+### Consigne
+
+Given an array of integers, return a new array with each value doubled.
+
+For example:
+
+```bash
+[1, 2, 3] --> [2, 4, 6]
+```
+
+### My solution
+
+```java
+ import java.util.Arrays;
+
+public class Maps {
+  public static int[] map(int[] arr) {
+    return Arrays.stream(arr).map(n -> n * 2).toArray();
+  }
+}
+```
+
+### Best pratice
+
+```java
+import java.util.*;
+public class Maps {
+  public static int[] map(int[] arr) {
+      return Arrays.stream(arr).map(x -> x*2).toArray();
+  }
+}
+```
+
+#### Or
+
+```java
+public class Maps {
+
+  public static int[] map(int[] inputArray) {
+
+  for (int i = 0; i < inputArray.length; i++) {
+      inputArray[i] = inputArray[i]*2;
+    }
+  return inputArray;
+  }
+}
+```
