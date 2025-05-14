@@ -1,4 +1,4 @@
-## Kata jour 17
+## Kata 17
 
 ### Consigne
 
@@ -55,6 +55,52 @@ class Java {
 class Java {
   public static int doubleInteger(int i) {
     return i*2;
+  }
+}
+```
+
+## kata 18
+
+### Consigne
+
+Implement a function which convert the given boolean value into its string representation.
+
+Note: Only valid inputs will be given.
+
+### My solution
+
+```java
+public class BooleanToString {
+  public static String convert(boolean b) {
+    String answer;
+    if (b == true)
+    {
+      answer = "true";
+    }
+    else {
+      answer = "false";
+    }
+    return answer;
+  }
+}
+```
+
+### Best pratice
+
+```java
+public class BooleanToString {
+  public static String convert(boolean b){
+    return b ? "true" : "false";
+  }
+}
+```
+
+or
+
+```java
+public class BooleanToString {
+  public static String convert(boolean b){
+    return Boolean.toString(b);
   }
 }
 ```
