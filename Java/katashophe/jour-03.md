@@ -59,7 +59,7 @@ class Java {
 }
 ```
 
-## kata 18
+## kata 19
 
 ### Consigne
 
@@ -101,6 +101,40 @@ or
 public class BooleanToString {
   public static String convert(boolean b){
     return Boolean.toString(b);
+  }
+}
+```
+
+## kata 20
+
+### Consigne
+
+Create a function that accepts a parameter representing a name and returns the message: "Hello, <name> how are you doing today?".
+
+[Make sure you type the exact thing I wrote or the program may not execute properly]
+
+### My solution
+
+```java
+public class Kata
+{
+  public static String greet(String name)
+  {
+    // Your code here
+      return "Hello, " + name + " how are you doing today?";
+
+  }
+}
+```
+
+### Best pratice
+
+```java
+public class Kata
+{
+  public static String greet(String name)
+  {
+    return String.format("Hello, %s how are you doing today?", name);
   }
 }
 ```
