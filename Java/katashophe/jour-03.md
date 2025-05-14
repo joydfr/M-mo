@@ -601,3 +601,48 @@ public class Kata {
   }
 }
 ```
+
+## Kata 29
+
+### Consigne
+
+Given a random non-negative number, you have to return the digits of this number within an array in reverse order.
+
+Example (Input => Output):
+
+```bash
+35231 => [1,3,2,5,3]
+0     => [0]
+```
+
+### My solution
+
+```java
+public class Kata {
+  public static int[] digitize(long n) {
+    String str = Long.toString(n);
+    int[] result = new int[str.length()];
+
+    for (int i = 0; i < str.length(); i++) {
+      // Remplir le tableau en ordre inverse
+      result[i] = Character.getNumericValue(str.charAt(str.length() - 1 - i));
+    }
+
+    return result;
+  }
+}
+```
+
+### Best pratique
+
+```java
+public class Kata {
+  public static int[] digitize(long n) {
+        return new StringBuilder().append(n)
+                                  .reverse()
+                                  .chars()
+                                  .map(Character::getNumericValue)
+                                  .toArray();
+  }
+}
+```
