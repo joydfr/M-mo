@@ -799,3 +799,68 @@ class Upper{
   }
 }
 ```
+
+## Kata 34
+
+### Consigne
+
+Clock shows h hours, m minutes and s seconds after midnight.
+
+Your task is to write a function which returns the time since midnight in milliseconds.
+Example:
+
+```bash
+h = 0
+m = 1
+s = 1
+
+result = 61000
+```
+
+Input constraints:
+
+```bash
+    0 <= h <= 23
+    0 <= m <= 59
+    0 <= s <= 59
+```
+
+### My solution
+
+```java
+public class Clock
+{
+  public static int Past(int h, int m, int s)
+  {
+    // Heure de départ à 0
+    long timestampBase = 0;
+
+    // Calcul des heures en millisecondes
+    long heure = h * 3600000; // 1 heure = 3600000 millisecondes
+
+    // Calcul des minutes en millisecondes
+    long minutes = m * 60000; // 1 minute = 60000 millisecondes
+
+    // Calcul des secondes en millisecondes
+    long second = s * 1000; // 1 seconde = 1000 millisecondes
+
+    // Additionner toutes les valeurs pour obtenir le total
+    timestampBase = heure + minutes + second;
+
+    // Retourner le résultat
+    return (int) timestampBase;
+  }
+}
+```
+
+### Best pratice
+
+```java
+public class Clock
+{
+  public static int Past(int h, int m, int s)
+  {
+    return h * 3600000 + m * 60000 + s * 1000;
+  }
+}
+```
