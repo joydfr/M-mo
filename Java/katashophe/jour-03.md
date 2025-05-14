@@ -773,3 +773,29 @@ public class Paper
   }
 }
 ```
+
+## Kata 33
+
+### Consigne
+
+Write a function which converts the input string to uppercase.
+
+### My solution
+
+```java
+class Upper {
+    public static String makeUpperCase(String str) {
+        return str.toUpperCase();
+    }
+}
+```
+
+### Best pratice
+
+```java
+class Upper{
+  public static String MakeUpperCase(String str){
+    return str.toUpperCase();
+  }
+}
+```
