@@ -1,0 +1,866 @@
+## Kata 17
+
+### Consigne
+
+Write a function that removes the spaces from the string, then return the resultant string.
+
+Examples (Input -> Output):
+
+```bash
+"8 j 8   mBliB8g  imjB8B8  jl  B" -> "8j8mBliB8gimjB8B8jlB"
+"8 8 Bi fk8h B 8 BB8B B B  B888 c hl8 BhB fd" -> "88Bifk8hB8BB8BBBB888chl8BhBfd"
+"8aaaaa dddd r     " -> "8aaaaaddddr"
+```
+
+### My solution
+
+```java
+public class Kata {
+    public static String noSpace(final String x) {
+        return x.replaceAll("\\s+", "");
+    }
+}
+```
+
+### Best pratice
+
+```java
+class Kata {
+    static String noSpace(final String x) {
+        return x.replace(" ", "");
+    }
+}
+```
+
+## Kata jour 18
+
+### Consigne
+
+Code as fast as you can! You need to double the integer and return it.
+
+### My solution
+
+```java
+class Java {
+  public static int doubleInteger(int i) {
+    // Double the integer and return it!
+  return i * 2;
+  }
+}
+```
+
+### best pratice
+
+```java
+class Java {
+  public static int doubleInteger(int i) {
+    return i*2;
+  }
+}
+```
+
+## kata 19
+
+### Consigne
+
+Implement a function which convert the given boolean value into its string representation.
+
+Note: Only valid inputs will be given.
+
+### My solution
+
+```java
+public class BooleanToString {
+  public static String convert(boolean b) {
+    String answer;
+    if (b == true)
+    {
+      answer = "true";
+    }
+    else {
+      answer = "false";
+    }
+    return answer;
+  }
+}
+```
+
+### Best pratice
+
+```java
+public class BooleanToString {
+  public static String convert(boolean b){
+    return b ? "true" : "false";
+  }
+}
+```
+
+or
+
+```java
+public class BooleanToString {
+  public static String convert(boolean b){
+    return Boolean.toString(b);
+  }
+}
+```
+
+## kata 20
+
+### Consigne
+
+Create a function that accepts a parameter representing a name and returns the message: "Hello, <name> how are you doing today?".
+
+[Make sure you type the exact thing I wrote or the program may not execute properly]
+
+### My solution
+
+```java
+public class Kata
+{
+  public static String greet(String name)
+  {
+    // Your code here
+      return "Hello, " + name + " how are you doing today?";
+
+  }
+}
+```
+
+### Best pratice
+
+```java
+public class Kata
+{
+  public static String greet(String name)
+  {
+    return String.format("Hello, %s how are you doing today?", name);
+  }
+}
+```
+
+## Kata 21
+
+### Consigne
+
+Your task is to create a function that does four basic mathematical operations.
+
+The function should take three arguments - operation(string/char), value1(number), value2(number).
+The function should return result of numbers after applying the chosen operation.
+Examples(Operator, value1, value2) --> output
+
+```bash
+('+', 4, 7) --> 11
+('-', 15, 18) --> -3
+('*', 5, 5) --> 25
+('/', 49, 7) --> 7
+```
+
+### My solution
+
+```java
+public class BasicOperations
+{
+  public static Integer basicMath(String op, int v1, int v2)
+  {
+    int result = 0;
+    if (op == "+")
+    {
+      result = v1 + v2;
+    }
+    if (op == "-")
+    {
+      result = v1 - v2;
+    }
+    if (op == "*"){
+      result = v1 * v2;
+    }
+    if (op == "/"){
+      result = v1 / v2;
+    }
+    return result;
+  }
+}
+```
+
+### Best pratice
+
+```java
+public class BasicOperations
+{
+  public static Integer basicMath(String op, int v1, int v2)
+  {
+  switch (op) {
+		case "-":
+			return v1 - v2;
+		case "+":
+			return v1 + v2;
+		case "*":
+			return v1 * v2;
+		case "/": {
+			if (v2 == 0)
+				throw new IllegalArgumentException("Division by zero");
+			return v1 / v2;
+		}
+		default:
+			throw new IllegalArgumentException("Unknown operation: " + op);
+		}
+  }
+}
+```
+
+or
+
+```java
+public class BasicOperations{
+  public static Integer basicMath(String symbol, int x, int y){
+    switch (symbol){
+      case "+": return x+y;
+      case "-": return x-y;
+      case "*": return x*y;
+      case "/": return x/y;
+    }
+    return 0;
+  }
+}
+```
+
+## Kata 22
+
+### Consigne
+
+Nathan loves cycling.
+
+Because Nathan knows it is important to stay hydrated, he drinks 0.5 litres of water per hour of cycling.
+
+You get given the time in hours and you need to return the number of litres Nathan will drink, rounded down.
+
+For example:
+
+```bash
+time = 3 ----> litres = 1
+
+time = 6.7---> litres = 3
+
+time = 11.8--> litres = 5
+```
+
+### My solution
+
+```java
+public class KeepHydrated  {
+  public static int liters(double time)  {
+    //Your code goes here! Hint: You should change that -1
+     double water = 0.0;
+     if (time >= 1){
+        water =time * 0.5;
+     }
+    int intWater = (int)Math.floor(water);
+    System.out.println(intWater);
+    return intWater;
+
+  }
+}
+
+```
+
+### Best pratice
+
+```java
+public class KeepHydrated  {
+  public static int liters(double time)  {
+    //Your code goes here! Hint: You should change that -1
+    return (int) time / 2;
+  }
+}
+```
+
+#### Or
+
+```java
+public class KeepHydrated  {
+  public static int liters(double time)  {
+    //Your code goes here! Hint: You should change that -1
+    double t = time*0.5;
+    return (int)t;
+
+  }
+}
+```
+
+## Kata 23
+
+### Consigne
+
+Introduction
+
+The first century spans from the year 1 up to and including the year 100, the second century - from the year 101 up to and including the year 200, etc.
+Task
+
+Given a year, return the century it is in.
+Examples
+
+```bash
+1705 --> 18
+1900 --> 19
+1601 --> 17
+2000 --> 20
+2742 --> 28
+```
+
+Note: this kata uses strict construction as shown in the description and the examples, you can read more about it here
+
+### My solution
+
+```java
+public class Solution {
+  public static int century(int number) {
+    // your code goes here
+   double  result = number / 100.0;
+    return (int)Math.ceil(result);
+  }
+}
+```
+
+### Best pratice
+
+```java
+public class Solution {
+  public static int century(int number) {
+    return (number + 99) / 100;
+  }
+}
+```
+
+## kata 24
+
+### Consigne
+
+Given an array of integers, return a new array with each value doubled.
+
+For example:
+
+```bash
+[1, 2, 3] --> [2, 4, 6]
+```
+
+### My solution
+
+```java
+ import java.util.Arrays;
+
+public class Maps {
+  public static int[] map(int[] arr) {
+    return Arrays.stream(arr).map(n -> n * 2).toArray();
+  }
+}
+```
+
+### Best pratice
+
+```java
+import java.util.*;
+public class Maps {
+  public static int[] map(int[] arr) {
+      return Arrays.stream(arr).map(x -> x*2).toArray();
+  }
+}
+```
+
+#### Or
+
+```java
+public class Maps {
+
+  public static int[] map(int[] inputArray) {
+
+  for (int i = 0; i < inputArray.length; i++) {
+      inputArray[i] = inputArray[i]*2;
+    }
+  return inputArray;
+  }
+}
+```
+
+## kata 25
+
+## Consigne
+
+Return the number (count) of vowels in the given string.
+
+We will consider a, e, i, o, u as vowels for this Kata (but not y).
+
+The input string will only consist of lower case letters and/or spaces.
+
+## My Solution
+
+```java
+public class Vowels {
+
+  public static int getCount(String str) {
+    int vowels = 0;
+ for (int i =0 ; i < str.length(); i++){
+   char c = str.charAt(i);
+   if (c =='a' || c== 'e'|| c == 'i'|| c== 'o' || c == 'u'){
+     vowels++;
+   }
+   }
+   return vowels;
+ }
+}
+```
+
+### Best pratice
+
+```java
+
+public class Vowels {
+
+    public static int getCount(String str) {
+        return str.replaceAll("(?i)[^aeiou]", "").length();
+    }
+
+}
+```
+
+## Kata 26
+
+### Consigne
+
+Trolls are attacking your comment section!
+
+A common way to deal with this situation is to remove all of the vowels from the trolls' comments, neutralizing the threat.
+
+Your task is to write a function that takes a string and return a new string with all vowels removed.
+
+For example, the string "This website is for losers LOL!" would become "Ths wbst s fr lsrs LL!".
+
+Note: for this kata y isn't considered a vowel.
+
+### My solution
+
+```java
+public class Troll {
+    public static String disemvowel(String str) {
+        // Code away...
+      return str.replaceAll("(?i)[aeiou]", "");
+    }
+}
+```
+
+### Best pratice
+
+```java
+public class Troll {
+    public static String disemvowel(String Z) {
+        return Z.replaceAll("(?i)[aeiou]" , "");
+    }
+}
+```
+
+## Kata 27
+
+### Consigne
+
+Welcome. In this kata, you are asked to square every digit of a number and concatenate them.
+
+For example, if we run 9119 through the function, 811181 will come out, because 92 is 81 and 12 is 1. (81-1-1-81)
+
+Example #2: An input of 765 will/should return 493625 because 72 is 49, 62 is 36, and 52 is 25. (49-36-25)
+
+Note: The function accepts an integer and returns an integer.
+
+Happy Coding!
+
+### My solution
+
+```java
+public class SquareDigit {
+
+  public int squareDigits(int n) {
+    String str = String.valueOf(n);
+    StringBuilder result = new StringBuilder();
+
+    for (int i = 0; i < str.length(); i++) {
+      char c = str.charAt(i);
+      int digit = Character.getNumericValue(c);
+      int square = digit * digit;
+      result.append(square);
+    }
+
+    return Integer.parseInt(result.toString());
+  }
+}
+```
+
+### Best pratice
+
+```java
+import java.util.stream.Collectors;
+
+public class SquareDigit {
+
+    public int squareDigits(int n) {
+        return Integer.parseInt(String.valueOf(n)
+                                      .chars()
+                                      .map(i -> Integer.parseInt(String.valueOf((char) i)))
+                                      .map(i -> i * i)
+                                      .mapToObj(String::valueOf)
+                                      .collect(Collectors.joining("")));
+    }
+
+}
+```
+
+#### Or
+
+```java
+public class SquareDigit {
+
+  public int squareDigits(int n) {
+
+    String strDigits = String.valueOf(n);
+    String result = "";
+
+    for (char c : strDigits.toCharArray()) {
+      int digit = Character.digit(c, 10);
+      result += digit * digit;
+    }
+
+    return Integer.parseInt(result);
+  }
+
+}
+```
+
+## Kata 28
+
+### Consigne
+
+In this little assignment you are given a string of space separated numbers, and have to return the highest and lowest number.
+Examples
+
+```bash
+highAndLow("1 2 3 4 5") // return "5 1"
+highAndLow("1 2 -3 4 5") // return "5 -3"
+highAndLow("1 9 3 4 -5") // return "9 -5
+```
+
+Notes
+
+    All numbers are valid Int32, no need to validate them.
+    There will always be at least one number in the input string.
+    Output string must be two numbers separated by a single space, and highest number is first.
+
+### My solution
+
+```java
+public class Kata {
+  public static String highAndLow(String numbers) {
+    // Code here or
+   String [] parts = numbers.split(" ");
+    int min = Integer.parseInt(parts[0]);
+    int max = Integer.parseInt(parts[0]);
+   for (String s : parts) {
+    int n = Integer.parseInt(s);
+    min = Math.min(min, n);
+    max = Math.max(max, n);
+}
+    return max + " " + min ;
+  }
+}
+```
+
+### Best pratice
+
+```java
+import static java.util.Arrays.stream;
+
+class Kata {
+  static String highAndLow(String numbers) {
+    var stats = stream(numbers.split(" ")).mapToInt(Integer::parseInt).summaryStatistics();
+    return stats.getMax() + " " + stats.getMin();
+  }
+}
+```
+
+#### Or
+
+```java
+public class Kata {
+  public static String highAndLow(String numbers) {
+        String[] array = numbers.split(" ");
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+        for (int i=0; i< array.length; i++){
+            int value = Integer.parseInt(array[i]);
+            if (value < min) min = value;
+            if (value > max) max = value;
+        }
+        return String.format("%d %d", max, min);
+  }
+}
+```
+
+## Kata 29
+
+### Consigne
+
+Given a random non-negative number, you have to return the digits of this number within an array in reverse order.
+
+Example (Input => Output):
+
+```bash
+35231 => [1,3,2,5,3]
+0     => [0]
+```
+
+### My solution
+
+```java
+public class Kata {
+  public static int[] digitize(long n) {
+    String str = Long.toString(n);
+    int[] result = new int[str.length()];
+
+    for (int i = 0; i < str.length(); i++) {
+      // Remplir le tableau en ordre inverse
+      result[i] = Character.getNumericValue(str.charAt(str.length() - 1 - i));
+    }
+
+    return result;
+  }
+}
+```
+
+### Best pratique
+
+```java
+public class Kata {
+  public static int[] digitize(long n) {
+        return new StringBuilder().append(n)
+                                  .reverse()
+                                  .chars()
+                                  .map(Character::getNumericValue)
+                                  .toArray();
+  }
+}
+```
+
+## Kata 30
+
+### Consigne
+
+Write a function that takes an array of numbers and returns the sum of the numbers. The numbers can be negative or non-integer. If the array does not contain any numbers then you should return 0.
+Examples
+
+Input: [1, 5.2, 4, 0, -1]
+Output: 9.2
+
+Input: []
+Output: 0
+
+Input: [-2.398]
+Output: -2.398
+Assumptions
+
+    You can assume that you are only given numbers.
+    You cannot assume the size of the array.
+    You can assume that you do get an array and if the array is empty, return 0.
+
+Tests expect accuracy of 1e-4.
+What We're Testing
+
+We're testing basic loops and math operations. This is for beginners who are just learning loops and math operations.
+Advanced users may find this extremely easy and can easily write this in one line.
+
+### My solution
+
+```java
+ import java.util.Arrays;
+public class SumArray {
+
+  public static double sum(double[] numbers) {
+
+    return Arrays.stream(numbers).sum();
+
+  }
+}
+```
+
+### Best pratice
+
+```java
+import java.util.Arrays;
+
+public class SumArray {
+
+  public static double sum(double[] numbers) {
+    return Arrays.stream(numbers).sum();
+  }
+}
+```
+
+## Kata 31
+
+### Consigne
+
+Timmy & Sarah think they are in love, but around where they live, they will only know once they pick a flower each. If one of the flowers has an even number of petals and the other has an odd number of petals it means they are in love.
+
+Write a function that will take the number of petals of each flower and return true if they are in love and false if they aren't.
+
+### My solution
+
+```java
+public class OppositesAttract {
+
+  public static boolean isLove(final int flower1, final int flower2) {
+
+  return (flower1 + flower2) % 2 != 0;
+  }
+
+}
+```
+
+### Best Pratice
+
+```java
+public class OppositesAttract {
+
+  public static boolean isLove(final int flower1, final int flower2) {
+    return flower1 % 2 != flower2 % 2;
+  }
+
+}
+```
+
+## Kata 32
+
+### Consigne
+
+Your classmates asked you to copy some paperwork for them. You know that there are 'n' classmates and the paperwork has 'm' pages.
+
+Your task is to calculate how many blank pages do you need. If n < 0 or m < 0 return 0.
+Example:
+
+```bash
+n= 5, m=5: 25
+n=-5, m=5:  0
+```
+
+### My solution
+
+```java
+public class Paper
+{
+  public static int paperWork(int n, int m)
+  {
+    //Happy Coding! ^_^
+    return (n > 0) && (m > 0) ? n * m : 0;
+  }
+}
+```
+
+### Best pratice
+
+```java
+public class Paper
+{
+  public static int paperWork(int n, int m)
+  {
+    return (n < 0) || (m < 0) ? 0 : n * m;
+    //Happy Coding! ^_^
+  }
+}
+```
+
+## Kata 33
+
+### Consigne
+
+Write a function which converts the input string to uppercase.
+
+### My solution
+
+```java
+class Upper {
+    public static String makeUpperCase(String str) {
+        return str.toUpperCase();
+    }
+}
+```
+
+### Best pratice
+
+```java
+class Upper{
+  public static String MakeUpperCase(String str){
+    return str.toUpperCase();
+  }
+}
+```
+
+## Kata 34
+
+### Consigne
+
+Clock shows h hours, m minutes and s seconds after midnight.
+
+Your task is to write a function which returns the time since midnight in milliseconds.
+Example:
+
+```bash
+h = 0
+m = 1
+s = 1
+
+result = 61000
+```
+
+Input constraints:
+
+```bash
+    0 <= h <= 23
+    0 <= m <= 59
+    0 <= s <= 59
+```
+
+### My solution
+
+```java
+public class Clock
+{
+  public static int Past(int h, int m, int s)
+  {
+    // Heure de départ à 0
+    long timestampBase = 0;
+
+    // Calcul des heures en millisecondes
+    long heure = h * 3600000; // 1 heure = 3600000 millisecondes
+
+    // Calcul des minutes en millisecondes
+    long minutes = m * 60000; // 1 minute = 60000 millisecondes
+
+    // Calcul des secondes en millisecondes
+    long second = s * 1000; // 1 seconde = 1000 millisecondes
+
+    // Additionner toutes les valeurs pour obtenir le total
+    timestampBase = heure + minutes + second;
+
+    // Retourner le résultat
+    return (int) timestampBase;
+  }
+}
+```
+
+### Best pratice
+
+```java
+public class Clock
+{
+  public static int Past(int h, int m, int s)
+  {
+    return h * 3600000 + m * 60000 + s * 1000;
+  }
+}
+```
