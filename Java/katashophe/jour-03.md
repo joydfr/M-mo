@@ -224,3 +224,66 @@ public class BasicOperations{
   }
 }
 ```
+
+## Kata 22
+
+### Consigne
+
+Nathan loves cycling.
+
+Because Nathan knows it is important to stay hydrated, he drinks 0.5 litres of water per hour of cycling.
+
+You get given the time in hours and you need to return the number of litres Nathan will drink, rounded down.
+
+For example:
+
+```bash
+time = 3 ----> litres = 1
+
+time = 6.7---> litres = 3
+
+time = 11.8--> litres = 5
+```
+
+### My solution
+
+```java
+public class KeepHydrated  {
+  public static int liters(double time)  {
+    //Your code goes here! Hint: You should change that -1
+     double water = 0.0;
+     if (time >= 1){
+        water =time * 0.5;
+     }
+    int intWater = (int)Math.floor(water);
+    System.out.println(intWater);
+    return intWater;
+
+  }
+}
+
+```
+
+### Best pratice
+
+```java
+public class KeepHydrated  {
+  public static int liters(double time)  {
+    //Your code goes here! Hint: You should change that -1
+    return (int) time / 2;
+  }
+}
+```
+
+#### Or
+
+```java
+public class KeepHydrated  {
+  public static int liters(double time)  {
+    //Your code goes here! Hint: You should change that -1
+    double t = time*0.5;
+    return (int)t;
+
+  }
+}
+```
