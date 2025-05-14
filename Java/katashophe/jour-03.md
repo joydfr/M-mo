@@ -31,3 +31,30 @@ class Kata {
     }
 }
 ```
+
+## Kata jour 18
+
+### Consigne
+
+Code as fast as you can! You need to double the integer and return it.
+
+### My solution
+
+```java
+class Java {
+  public static int doubleInteger(int i) {
+    // Double the integer and return it!
+  return i * 2;
+  }
+}
+```
+
+### best pratice
+
+```java
+class Java {
+  public static int doubleInteger(int i) {
+    return i*2;
+  }
+}
+```
