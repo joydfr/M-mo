@@ -208,23 +208,37 @@ public class Kata {
 }
 ```
 
-## kata 35
+## kata 40
 
 ### Consigne
+
+Write a function which calculates the average of the numbers in a given array.
+
+Note: Empty arrays should return 0.
 
 ### My solution
 
 ```java
-
+import java.util.*;
+public class Kata {
+    public static double findAverage(int[] array) {
+        return Arrays.stream(array).average().orElse(Double.NaN);
+    }
+}
 ```
 
 ### Best pratice
 
 ```java
-
+import java.util.Arrays;
+public class Kata{
+  public static double find_average(int[] array){
+    return Arrays.stream(array).average().orElse(0);
+  }
+}
 ```
 
-## kata 35
+## kata 41
 
 ### Consigne
 
