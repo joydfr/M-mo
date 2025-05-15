@@ -424,36 +424,106 @@ class Solution {
 }
 ```
 
-## kata 35
+## kata 45
 
 ### Consigne
+
+Given an array of integers.
+
+Return an array, where the first element is the count of positives numbers and the second element is sum of negative numbers. 0 is neither positive nor negative.
+
+If the input is an empty array or is null, return an empty array.
+
+```bash
+For input [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -11, -12, -13, -14, -15], you should return [10, -65].
+```
 
 ### My solution
 
 ```java
-
+import java.util.*;
+public class Kata
+{
+    public static int[] countPositivesSumNegatives(int[] input)
+    {
+      if (input.length == 0 || input == null) return new int [0];
+        int numberOne = (int) Arrays.stream(input).filter(v -> v > 0).count();
+        int numberTwo = Arrays.stream(input).filter(v -> v < 0).sum();
+        return new int[] {numberOne, numberTwo} ;
+      //return an array with count of positives and sum of negatives
+    }
+}
 ```
 
 ### Best pratice
 
 ```java
-
+public class Kata
+{
+    public static int[] countPositivesSumNegatives(int[] input)
+    {
+       if (input == null || input.length == 0) return new int[] {};
+       int count = 0,sum = 0;
+       for (int i : input) {
+         if (i > 0) count ++;
+         if (i < 0) sum += i;
+       }
+       return new int[] {count,sum};
+    }
+}
 ```
 
-## kata 35
+#### Or
+
+```java
+import java.util.stream.*;
+
+public class Kata {
+
+  public static int[] countPositivesSumNegatives(int[] input) {
+    return input == null || input.length == 0 ?
+      new int[0] :
+      new int[] { (int)IntStream.of(input).filter(i->i>0).count(), IntStream.of(input).filter(i->i<0).sum() };
+  }
+}
+```
+
+## kata 46
 
 ### Consigne
+
+Deoxyribonucleic acid, DNA is the primary information storage molecule in biological systems. It is composed of four nucleic acid bases Guanine ('G'), Cytosine ('C'), Adenine ('A'), and Thymine ('T').
+
+Ribonucleic acid, RNA, is the primary messenger molecule in cells. RNA differs slightly from DNA its chemical structure and contains no Thymine. In RNA Thymine is replaced by another nucleic acid Uracil ('U').
+
+Create a function which translates a given DNA string into RNA.
+
+For example:
+
+```bash
+"GCAT"  =>  "GCAU"
+```
+
+The input string can be of arbitrary length - in particular, it may be empty. All input is guaranteed to be valid, i.e. each input string will only ever consist of 'G', 'C', 'A' and/or 'T'.
 
 ### My solution
 
 ```java
-
+public class Bio {
+    public String dnaToRna(String dna) {
+        return dna.replace('T','U' );  // Do your magic!
+    }
+}
 ```
 
 ### Best pratice
 
 ```java
-
+public class Bio{
+    public String dnaToRna(String dna){
+        return dna.replace("T", "U");
+    }
+}
 ```
 
 ## kata 35
