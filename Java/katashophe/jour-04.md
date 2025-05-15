@@ -291,20 +291,61 @@ public class SmashWords {
 }
 ```
 
-## kata 35
+## kata 42
 
 ### Consigne
+
+Given a non-empty array of integers, return the result of multiplying the values together in order. Example:
+
+```bash
+[1, 2, 3, 4] => 1 * 2 * 3 * 4 = 24
+```
 
 ### My solution
 
 ```java
+import java.util.*;
+import java.util.stream.IntStream;
+public class Kata{
 
+  public static int grow(int[] x){
+
+    return Arrays.stream(x).reduce(1, (a, b) -> a * b);
+
+  }
+
+}
 ```
 
 ### Best pratice
 
 ```java
+public class Kata{
 
+  public static int grow(int[] x){
+    int result = 1;
+    for (int a : x) {
+      result *= a;
+    }
+    return result;
+  }
+}
+```
+
+#### Or
+
+```java
+import java.util.stream.IntStream;
+
+public class Kata{
+
+  public static int grow(int[] x){
+
+    return IntStream.of(x).reduce(1, (a, b) -> a * b);
+
+  }
+
+}
 ```
 
 ## kata 35
