@@ -175,20 +175,37 @@ public class Kata {
 }
 ```
 
-## kata 35
+## kata 39
 
 ### Consigne
+
+Given a set of numbers, return the additive inverse of each. Each positive becomes negatives, and the negatives become positives
+
+```bash
+[1, 2, 3, 4, 5] --> [-1, -2, -3, -4, -5]
+[1, -2, 3, -4, 5] --> [-1, 2, -3, 4, -5]
+[] --> []
+```
 
 ### My solution
 
 ```java
-
+import java.util.*;
+public class Kata {
+  public static int[] invert(int[] array) {
+    return Arrays.stream(array).map(x -> Math.negateExact(x)).toArray();
+  }
+}
 ```
 
 ### Best pratice
 
 ```java
-
+public class Kata {
+  public static int[] invert(int[] array) {
+    return java.util.Arrays.stream(array).map(i -> -i).toArray();
+  }
+}
 ```
 
 ## kata 35
