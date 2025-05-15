@@ -82,36 +82,97 @@ public class Sid {
 }
 ```
 
-## kata 35
+## kata 37
 
 ### Consigne
+
+Write a function to convert a name into initials. This kata strictly takes two words with one space in between them.
+
+The output should be two capital letters with a dot separating them.
+
+It should look like this:
+
+```bash
+Sam Harris => S.H
+
+patrick feeney => P.F
+```
 
 ### My solution
 
 ```java
+public class AbbreviateTwoWords {
 
+  public static String abbrevName(String name) {
+    char premierCaractere = name.charAt(0);
+    String firstLettre = String.valueOf(premierCaractere);
+    int indexEspace = name.indexOf(" ");
+    char premierCaractereNom = name.charAt(indexEspace +1);
+    String SecondeLettre = String.valueOf(premierCaractereNom);
+    return firstLettre.toUpperCase() + "." +  SecondeLettre.toUpperCase();
+  }
+}
 ```
 
 ### Best pratice
 
 ```java
+public class AbbreviateTwoWords {
+
+  public static String abbrevName(String name) {
+    String[] names = name.split(" ");
+    return (names[0].charAt(0) + "." + names[1].charAt(0)).toUpperCase();
+  }
+}
+```
+
+## kata 38
+
+### Consigne
+
+Can you find the needle in the haystack?
+
+Write a function findNeedle() that takes an array full of junk but containing one "needle"
+
+After your function finds the needle it should return a message (as a string) that says:
+
+"found the needle at position " plus the index it found the needle, so:
+
+Example(Input --> Output)
+
+```bash
+["hay", "junk", "hay", "hay", "moreJunk", "needle", "randomJunk"] --> "found the needle at position 5"
 
 ```
 
-## kata 35
-
-### Consigne
+Note: In COBOL, it should return "found the needle at position 6"
 
 ### My solution
 
 ```java
 
+import java.util.Arrays;
+
+import java.util.List;
+
+public class Kata {
+  public static String findNeedle(Object[] haystack) {
+    // Your code here
+    List <Object> newList = Arrays.asList(haystack);
+     int indexNeedle = newList.indexOf("needle");
+      return  "found the needle at position " + indexNeedle;
+  }
+}
 ```
 
 ### Best pratice
 
 ```java
-
+public class Kata {
+  public static String findNeedle(Object[] haystack) {
+    return String.format("found the needle at position %d", java.util.Arrays.asList(haystack).indexOf("needle"));
+  }
+}
 ```
 
 ## kata 35
