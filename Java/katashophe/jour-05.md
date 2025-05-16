@@ -608,6 +608,194 @@ public class Kata {
 }
 ```
 
+## kata 63
+
+### Consigne
+
+You are given the length and width of a 4-sided polygon. The polygon can either be a rectangle or a square.
+If it is a square, return its area. If it is a rectangle, return its perimeter.
+
+Example(Input1, Input2 --> Output):
+
+```bash
+6, 10 --> 32
+3, 3 --> 9
+
+```
+
+Note: for the purposes of this kata you will assume that it is a square if its length and width are equal, otherwise it is a rectangle.
+
+### My solution
+
+```java
+public class Solution {
+    public static int areaOrPerimeter (int l, int w) {
+        // code away...
+      return l == w ? l * w : (l + w ) * 2;
+    }
+}
+```
+
+### Best pratice
+
+```java
+public class Solution {
+    public static int areaOrPerimeter (int a, int b) {
+        return a == b ? a * b : 2 * ( a + b );
+    }
+}
+```
+
+## kata 65
+
+### Consigne
+
+You are given two interior angles (in degrees) of a triangle.
+
+Write a function to return the 3rd.
+
+Note: only positive integers will be tested.
+
+### My solution
+
+```java
+public class ThirdAngle {
+    public static int otherAngle(int angle1, int angle2) {
+        // TODO: Place code here
+        return 180 - angle1 - angle2;
+    }
+}
+```
+
+### Best pratice
+
+```java
+public class ThirdAngle {
+
+    public static int otherAngle(int angle1, int angle2) {
+        return 180 - (angle1 + angle2);
+    }
+}
+```
+
+## kata 66
+
+### Consigne
+
+Write a function named setAlarm/set_alarm/set-alarm/setalarm (depending on language) which receives two parameters. The first parameter, employed, is true whenever you are employed and the second parameter, vacation is true whenever you are on vacation.
+
+The function should return true if you are employed and not on vacation (because these are the circumstances under which you need to set an alarm). It should return false otherwise. Examples:
+
+```bash
+employed | vacation
+true     | true     => false
+true     | false    => true
+false    | true     => false
+false    | false    => false
+```
+
+### My solution
+
+```java
+public class Alarm {
+
+  public static boolean setAlarm(boolean employed, boolean vacation) {
+    // Your code here...
+    return employed && !vacation ;
+  }
+
+}
+```
+
+### Best pratice
+
+```java
+public class Alarm {
+
+  public static boolean setAlarm(boolean employed, boolean vacation) {
+    return employed && !vacation;
+  }
+
+}
+```
+
+## kata 65
+
+### Consigne
+
+Task
+
+Sum all the numbers of a given array ( cq. list ), except the highest and the lowest element ( by value, not by index! ).
+
+The highest or lowest element respectively is a single element at each edge, even if there are more than one with the same value.
+
+Mind the input validation.
+Example
+
+```bash
+{ 6, 2, 1, 8, 10 } => 16
+{ 1, 1, 11, 2, 3 } => 6
+```
+
+Input validation
+
+If an empty value ( null, None, Nothing, nil etc. ) is given instead of an array, or the given array is an empty list or a list with only 1 element, return 0.
+
+### My solution
+
+```java
+import java.util.*;
+public class Kata
+{
+  public static int sum(int[] numbers)
+  {
+    if (numbers == null || numbers.length <= 2) return 0;
+    int min = Arrays.stream(numbers).min().getAsInt();
+    int max = Arrays.stream(numbers).max().getAsInt();
+    int result = Arrays.stream(numbers).sum() ;
+
+    return result - min -max;
+  }
+}
+```
+
+### Best pratice
+
+```java
+public class Kata
+{
+  public static int sum(int[] numbers)
+  {
+    if (numbers == null || numbers.length == 0 || numbers.length == 1) return 0;
+    int min,max,sum;
+    sum = min = max = numbers[0];
+    for (int i = 1; i < numbers.length; i++)
+    {
+      sum += numbers[i];
+      if (numbers[i] < min) min = numbers[i];
+      if (numbers[i] > max) max = numbers[i];
+    }
+    return sum - min - max;
+  }
+}
+```
+
+## kata 35
+
+### Consigne
+
+### My solution
+
+```java
+
+```
+
+### Best pratice
+
+```java
+
+```
+
 ## kata 35
 
 ### Consigne
