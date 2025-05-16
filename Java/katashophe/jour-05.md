@@ -169,20 +169,42 @@ public class FakeBinary {
 }
 ```
 
-## kata 35
+## kata 52
 
 ### Consigne
+
+Write a function to split a string and convert it into an array of words.
+Examples (Input ==> Output):
+
+```bash
+"Robin Singh" ==> ["Robin", "Singh"]
+
+"I love arrays they are my favorite" ==> ["I", "love", "arrays", "they", "are", "my", "favorite"]
+```
 
 ### My solution
 
 ```java
+import java.util.Arrays;
+public class Solution {
 
+    public static String[] stringToArray(String s) {
+      //your code;
+
+        return s.split(" ");
+    }
+
+}
 ```
 
 ### Best pratice
 
 ```java
-
+public class Solution {
+    public static String[] stringToArray(String s) {
+        return s.split(" ");
+    }
+}
 ```
 
 ## kata 35
