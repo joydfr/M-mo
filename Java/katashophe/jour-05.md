@@ -207,25 +207,80 @@ public class Solution {
 }
 ```
 
-## kata 35
+## kata 53
 
 ### Consigne
+
+Create a function with two arguments that will return an array of the first n multiples of x.
+
+Assume both the given number and the number of times to count will be positive numbers greater than 0.
+
+Return the results as an array or list ( depending on language ).
+Examples
+
+```bash
+x = 1, n = 10 --> [1,2,3,4,5,6,7,8,9,10]
+x = 2, n = 5  --> [2,4,6,8,10]
+
+```
 
 ### My solution
 
 ```java
+import java.util.*;
 
+public class Kata {
+  public static int[] countBy(int x, int n) {
+    List<Integer> arrList = new ArrayList<>();
+    for (int i = 1; i <= n; i++) {
+      arrList.add(x * i);
+    }
+
+    // Convertir List<Integer> → int[]
+    int[] result = new int[arrList.size()];
+    for (int i = 0; i < arrList.size(); i++) {
+      result[i] = arrList.get(i);
+    }
+
+    return result;
+  }
+}
 ```
 
 ### Best pratice
 
 ```java
+import java.util.stream.IntStream;
 
+public class Kata{
+  public static int[] countBy(int x, int n){
+
+    return IntStream.rangeClosed(1, n)
+      .map(i -> i * x)
+      .toArray();
+  }
+}
 ```
 
-## kata 35
+#### Or
+
+```java
+public class Kata{
+  public static int[] countBy(int x, int n){
+    int[] el = new int[n];
+    for(int i = 0; i < n; i++)  el[i] = x * (i+1);
+    return el;
+  }
+}
+```
+
+## kata 54
 
 ### Consigne
+
+Build a function that returns an array of integers from n to 1 where n>0.
+
+Example : n=5 --> [5,4,3,2,1]
 
 ### My solution
 
