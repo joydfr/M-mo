@@ -131,20 +131,42 @@ public class Solution {
 }
 ```
 
-## kata 35
+## kata 51
 
 ### Consigne
+
+Given a string of digits, you should replace any digit below 5 with '0' and any digit 5 and above with '1'. Return the resulting string.
+
+Note: input will never be an empty string
 
 ### My solution
 
 ```java
-
+public class FakeBinary {
+    public static String fakeBin(String numberString) {
+      StringBuilder newNumberString = new StringBuilder();
+      for (int i = 0 ; i < numberString.length(); i++){
+        int digit = Character.getNumericValue(numberString.charAt(i));
+        if (digit < 5){
+          newNumberString.append('0');
+        }
+        else{
+          newNumberString.append('1');
+        }
+      }
+        return newNumberString.toString();
+    }
+}
 ```
 
 ### Best pratice
 
 ```java
-
+public class FakeBinary {
+    public static String fakeBin(String numberString) {
+        return numberString.replaceAll("[0-4]", "0").replaceAll("[5-9]", "1");
+    }
+}
 ```
 
 ## kata 35
