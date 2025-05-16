@@ -512,23 +512,33 @@ public class Kata {
 }
 ```
 
-## kata 35
+## kata 60
 
 ### Consigne
+
+Write function RemoveExclamationMarks which removes all exclamation marks from a given string.
 
 ### My solution
 
 ```java
-
+class Solution {
+    static String removeExclamationMarks(String s) {
+        return s.replace("!","");
+    }
+}
 ```
 
 ### Best pratice
 
 ```java
-
+class Solution {
+    static String removeExclamationMarks(String s) {
+        return s.replaceAll("!", "");
+    }
+}
 ```
 
-## kata 35
+## kata 60
 
 ### Consigne
 
