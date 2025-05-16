@@ -538,7 +538,7 @@ class Solution {
 }
 ```
 
-## kata 60
+## kata 61
 
 ### Consigne
 
@@ -575,20 +575,37 @@ interface Kata {
 }
 ```
 
-## kata 35
+## kata 62
 
 ### Consigne
+
+Bob needs a fast way to calculate the volume of a rectangular cuboid with three values: the length, width and height of the cuboid.
+
+Write a function to help Bob with this calculation.
 
 ### My solution
 
 ```java
+public class Kata {
 
+  public static double getVolumeOfCuboid(final double length, final double width, final double height) {
+    // Your code here
+    return length * width *height ;
+  }
+
+}
 ```
 
 ### Best pratice
 
 ```java
+public class Kata {
 
+  public static double getVolumeOfCuboid(final double length, final double width, final double height) {
+    return length * width * height;
+  }
+
+}
 ```
 
 ## kata 35
