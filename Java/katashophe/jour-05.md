@@ -285,13 +285,33 @@ Example : n=5 --> [5,4,3,2,1]
 ### My solution
 
 ```java
+import java.util.*;
+public class Sequence{
 
+  public static int[] reverse(int n){
+    int[] reverse = new int [n];
+    for (int i =0; i < n ; i++)
+     reverse[i] = n -i ;
+    return reverse;
+  }
+
+}
 ```
 
 ### Best pratice
 
 ```java
+public class Sequence{
 
+  public static int[] reverse(int n){
+    //your code
+    int[] res = new int[n];
+    for (int i=0; i<n; i++)
+      res[i]=n-i;
+    return res;
+  }
+
+}
 ```
 
 ## kata 35
