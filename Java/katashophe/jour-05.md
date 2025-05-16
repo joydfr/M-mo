@@ -396,52 +396,120 @@ class Kata {
 }
 ```
 
-## kata 35
+## kata 57
 
 ### Consigne
+
+Grade book
+
+Complete the function so that it finds the average of the three scores passed to it and returns the letter value associated with that grade.
+Numerical Score Letter Grade
+90 <= score <= 100 'A'
+80 <= score < 90 'B'
+70 <= score < 80 'C'
+60 <= score < 70 'D'
+0 <= score < 60 'F'
+
+Tested values are all between 0 and 100. Theres is no need to check for negative values or values greater than 100.
 
 ### My solution
 
 ```java
-
+public class GrassHopper {
+    public static char getGrade(int s1, int s2, int s3) {
+      int average = (s1 + s2 + s3) / 3;
+     return average >= 90  ? 'A':
+      average >= 80  ? 'B':
+        average >= 70 ? 'C':
+          average >= 60 ? 'D':'F';
+    }
+}
 ```
 
 ### Best pratice
 
 ```java
+public class GrassHopper {
 
+    public static char getGrade(int s1, int s2, int s3) {
+        int mean = (s1 + s2 + s3) / 3;
+        if (mean >= 90) return 'A';
+        if (mean >= 80) return 'B';
+        if (mean >= 70) return 'C';
+        if (mean >= 60) return 'D';
+        return 'F';
+    }
+}
 ```
 
-## kata 35
+## kata 58
 
 ### Consigne
+
+Create a function that gives a personalized greeting. This function takes two parameters: name and owner.
+
+Use conditionals to return the proper message:
+case return
+name equals owner 'Hello boss'
+otherwise 'Hello guest'
 
 ### My solution
 
 ```java
-
+class Kata {
+    static String greet(String name, String owner) {
+        // Add code here
+      return name.equals(owner) ? "Hello boss" : "Hello guest";
+    }
+}
 ```
 
 ### Best pratice
 
 ```java
-
+class Kata {
+    static String greet(String name, String owner) {
+        return name.equals(owner) ? "Hello boss" : "Hello guest";
+    }
+}
 ```
 
-## kata 35
+## kata 59
 
 ### Consigne
+
+After a hard quarter in the office you decide to get some rest on a vacation. So you will book a flight for you and your girlfriend and try to leave all the mess behind you.
+
+You will need a rental car in order for you to get around in your vacation. The manager of the car rental makes you some good offers.
+
+Every day you rent the car costs $40. If you rent the car for 7 or more days, you get $50 off your total. Alternatively, if you rent the car for 3 or more days, you get $20 off your total.
+
+Write a code that gives out the total amount for different days(d).
 
 ### My solution
 
 ```java
-
+public class Kata {
+  public static int rentalCarCost(int d) {
+    // Your solution here
+    int total = d * 40;
+    return d >= 7 ? total - 50 : d >= 3 ? total - 20 : total;
+  }
+}
 ```
 
 ### Best pratice
 
 ```java
+public class Kata {
+  private static final int COST_PER_DAY = 40;
 
+  public static int rentalCarCost(int d) {
+    if (d < 3)       return d * COST_PER_DAY;
+    else if (d >= 7) return d * COST_PER_DAY - 50;
+    else             return d * COST_PER_DAY - 20;
+  }
+}
 ```
 
 ## kata 35
