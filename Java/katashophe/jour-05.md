@@ -314,20 +314,48 @@ public class Sequence{
 }
 ```
 
-## kata 35
+## kata 55
 
 ### Consigne
+
+Let's play! You have to return which player won! In case of a draw return Draw!.
+
+Examples(Input1, Input2 --> Output):
+
+```bash
+"scissors", "paper" --> "Player 1 won!"
+"scissors", "rock" --> "Player 2 won!"
+"paper", "paper" --> "Draw!"
+```
 
 ### My solution
 
 ```java
+public class Kata {
+  public static String rps(String p1, String p2) {
+    if (p1.equals(p2)) return "Draw!";
 
+    if ((p1.equals("rock") && p2.equals("scissors")) ||
+        (p1.equals("scissors") && p2.equals("paper")) ||
+        (p1.equals("paper") && p2.equals("rock"))) {
+      return "Player 1 won!";
+    } else {
+      return "Player 2 won!";
+    }
+  }
+}
 ```
 
 ### Best pratice
 
 ```java
-
+public class Kata {
+  public static String rps(String p1, String p2) {
+    if(p1 == p2) return "Draw!";
+    int p = (p1 + p2).equals("scissorspaper") || (p1 + p2).equals("rockscissors") || (p1 + p2).equals("paperrock") ? 1 : 2;
+    return "Player " + p + " won!";
+  }
+}
 ```
 
 ## kata 35
