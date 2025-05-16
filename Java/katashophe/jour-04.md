@@ -526,7 +526,7 @@ public class Bio{
 }
 ```
 
-## kata 35
+## kata 47
 
 ### Consigne
 
@@ -563,36 +563,4 @@ class Kata {
     return distanceToPump <= mpg * fuelLeft;
   }
 }
-```
-
-## kata 35
-
-### Consigne
-
-### My solution
-
-```java
-
-```
-
-### Best pratice
-
-```java
-
-```
-
-## kata 35
-
-### Consigne
-
-### My solution
-
-```java
-
-```
-
-### Best pratice
-
-```java
-
 ```
