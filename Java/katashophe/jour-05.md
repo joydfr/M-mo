@@ -93,20 +93,42 @@ public class Kata {
 }
 ```
 
-## kata 35
+## kata 50
 
 ### Consigne
+
+You will be given an array a and a value x. All you need to do is check whether the provided array contains the value.
+
+a can contain numbers or strings. x can be either.
+
+Return true if the array contains the value, false if not.
 
 ### My solution
 
 ```java
+import java.util.Arrays;
+public class Solution {
 
+    public static boolean check(Object[] a, Object x) {
+        // Your code here
+        return a == null || Arrays.asList(a).contains(x) ? true: false;
+    }
+
+}
 ```
 
 ### Best pratice
 
 ```java
+import java.util.Arrays;
 
+public class Solution {
+
+    public static boolean check(Object[] a, Object x) {
+        return Arrays.asList(a).contains(x);
+    }
+
+}
 ```
 
 ## kata 35
