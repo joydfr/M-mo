@@ -529,14 +529,52 @@ class Bob {
 
 ### consigne
 
+Complete the function that takes two integers (a, b, where a < b) and return an array of all integers between the input parameters, including them.
+
+For example:
+
+```bash
+a = 1
+b = 4
+--> [1, 2, 3, 4]
+```
+
 ### My solution
 
 ```java
+import java.util.stream.IntStream;
 
+public class Kata {
+  public static int[] between(int a, int b) {
+    return IntStream.rangeClosed(a, b).toArray();
+  }
+}
 ```
 
 ### Best pratice
 
 ```java
+import static java.util.stream.IntStream.rangeClosed;
 
+interface Kata {
+  static int[] between(int a, int b) {
+    return rangeClosed(a, b).toArray();
+  }
+}
+```
+
+#### Or
+
+```java
+public class Kata {
+
+  public static int[] between(int a, int b) {
+        // your code here
+        int[] result = new int[b - a + 1];
+        for (int i = a; i <= b; i++) {
+            result[i - a] = i;
+        }
+        return result;
+    }
+}
 ```
