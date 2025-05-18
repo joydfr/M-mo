@@ -270,7 +270,7 @@ public class Kata
  }
 ```
 
-## Kata 68
+## Kata 74
 
 ### consigne
 
@@ -331,7 +331,44 @@ public class Kata {
 }
 ```
 
-## Kata 68
+## Kata 75
+
+### consigne
+
+Your function takes two arguments:
+
+    current father's age (years)
+    current age of his son (years)
+
+Сalculate how many years ago the father was twice as old as his son (or in how many years he will be twice as old). The answer is always greater or equal to 0, no matter if it was in the past or it is in the future
+
+### My solution
+
+```java
+public class TwiceAsOld {
+
+    public static int twiceAsOld(int dadYears, int sonYears) {
+        //TODO: Add code here
+        return Math.abs(dadYears - 2 * sonYears);
+    }
+
+}
+```
+
+### Best pratice
+
+```java
+public class TwiceAsOld{
+
+  public static int TwiceAsOld(int dadYears, int sonYears){
+    return Math.abs((sonYears*2)-dadYears);
+
+  }
+
+}
+```
+
+## Kata 76
 
 ### consigne
 
@@ -347,7 +384,7 @@ public class Kata {
 
 ```
 
-## Kata 68
+## Kata 77
 
 ### consigne
 
@@ -363,7 +400,7 @@ public class Kata {
 
 ```
 
-## Kata 68
+## Kata 78
 
 ### consigne
 
@@ -379,7 +416,23 @@ public class Kata {
 
 ```
 
-## Kata 68
+## Kata 79
+
+### consigne
+
+### My solution
+
+```java
+
+```
+
+### Best pratice
+
+```java
+
+```
+
+## Kata 80
 
 ### consigne
 
