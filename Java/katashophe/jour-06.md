@@ -160,7 +160,7 @@ public class Cockroach{
 }
 ```
 
-## Kata 68
+## Kata 72
 
 ### consigne
 
@@ -229,6 +229,138 @@ public class Kata {
     return new String[] {"Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"}[number];
   }
 }
+```
+
+## Kata 73
+
+### consigne
+
+Now you have to write a function that takes an argument and returns the square of it.
+
+### My solution
+
+```java
+public class Kata
+ {
+  public static int square(int n){
+    return n*n;
+       //Your Code
+  }
+ }
+```
+
+### Best pratice
+
+```java
+public class Kata {
+public static int square(int n) {
+return n*n;
+}
+}
+```
+
+#### Or
+
+```java
+public class Kata
+ {
+  public static int square(int n){
+    return (int) Math.pow(n, 2);
+  }
+ }
+```
+
+## Kata 68
+
+### consigne
+
+Take an array and remove every second element from the array. Always keep the first element and start removing with the next element.
+Example:
+
+["Keep", "Remove", "Keep", "Remove", "Keep", ...] --> ["Keep", "Keep", "Keep", ...]
+
+None of the arrays will be empty, so you don't have to worry about that!
+
+### My solution
+
+```java
+public class Kata {
+
+  public static Object[] removeEveryOther(Object[] arr) {
+    // happy coding
+    Object[] result = new Object[(arr.length + 1) / 2];
+      int j= 0;
+    for (int i = 0; i < arr.length; i += 2)
+    {
+      result[j] = arr[i];
+       j++;
+    }
+
+    return result;
+  }
+}
+```
+
+### Best pratice
+
+```java
+public class Kata {
+
+  public static Object[] removeEveryOther(Object[] arr) {
+    Object[] output = new Object[(arr.length + 1) / 2];
+
+    for (int i = 0; i < output.length; i++) {
+        output[i] = arr[i * 2];
+    }
+
+    return output;
+  }
+}
+```
+
+#### Or
+
+```java
+import java.util.Arrays;
+import java.util.stream.IntStream;
+public class Kata {
+
+  public static Object[] removeEveryOther(Object[] arr) {
+    return IntStream.range(0, arr.length).filter(n -> n % 2 == 0).mapToObj(i->arr[i]).toArray();
+  }
+}
+```
+
+## Kata 68
+
+### consigne
+
+### My solution
+
+```java
+
+```
+
+### Best pratice
+
+```java
+
+```
+
+## Kata 68
+
+### consigne
+
+### My solution
+
+```java
+
+```
+
+### Best pratice
+
+```java
+
 ```
 
 ## Kata 68
