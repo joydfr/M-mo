@@ -780,34 +780,98 @@ public class Kata
 }
 ```
 
-## kata 35
+## kata 66
 
 ### Consigne
+
+Messi is a soccer player with goals in three leagues:
+
+    LaLiga
+    Copa del Rey
+    Champions
+
+Complete the function to return his total number of goals in all three leagues.
+
+Note: the input will always be valid.
+
+For example:
+
+```bash
+5, 10, 2  -->  17
+```
 
 ### My solution
 
 ```java
-
+public class Goals {
+    public static int goals(int laLigaGoals, int copaDelReyGoals, int championsLeagueGoals) {
+        // your code here
+      return laLigaGoals + copaDelReyGoals + championsLeagueGoals;
+    }
+}
 ```
 
 ### Best pratice
 
 ```java
-
+public class Goals {
+    public static int goals(int laLigaGoals, int copaDelReyGoals, int championsLeagueGoals) {
+        return laLigaGoals + copaDelReyGoals + championsLeagueGoals;
+    }
+}
 ```
 
-## kata 35
+## kata 67
 
 ### Consigne
+
+Given a string, you have to return a string in which each character (case-sensitive) is repeated once.
+
+```bash
+* "String"      -> "SSttrriinngg"
+* "Hello World" -> "HHeelllloo  WWoorrlldd"
+* "1234!_ "     -> "11223344!!__  "
+```
 
 ### My solution
 
 ```java
+public class Solution {
+  public static String doubleChar(String s) {
+    StringBuilder newString = new StringBuilder();
 
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
+      newString.append(c).append(c);
+    }
+
+    return newString.toString();
+  }
+}
 ```
 
 ### Best pratice
 
 ```java
+public class Solution{
+  public static String doubleChar(String s){
+    StringBuilder srtingBuilder = new StringBuilder("");
+    for (int i = 0; i < s.length(); i++) {
+      srtingBuilder.append(s.charAt(i)).append(s.charAt(i));
+    }
+    return srtingBuilder.toString();
+  }
+}
+```
 
+#### Or
+
+```java
+public class Solution{
+  public static String doubleChar(String s){
+     return s.replaceAll(".", "$0$0");
+
+
+  }
+}
 ```
