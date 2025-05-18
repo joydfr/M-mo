@@ -110,20 +110,54 @@ public class Sum {
 }
 ```
 
-## Kata 68
+## Kata 71
 
 ### consigne
+
+The cockroach is one of the fastest insects. Write a function which takes its speed in km per hour and returns it in cm per second, rounded down to the integer (= floored).
+
+For example:
+
+```bash
+1.08 --> 30
+```
+
+Note! The input is a Real number (actual type is language dependent) and is >= 0. The result should be an Integer.
 
 ### My solution
 
 ```java
-
+public class Cockroach{
+  public int cockroachSpeed(double x){
+    // Good Luck!
+    double result = x * 100000 / 3600 ;
+    int resultInt = (int) result;
+    return resultInt ;
+  }
+}
 ```
 
 ### Best pratice
 
 ```java
+public class Cockroach{
+  public int cockroachSpeed(double kph){
+    int secondsInHour = 3600;
+    int cmInKm = 100000;
+    int centimetresPerSecond = (int) (kph * cmInKm / secondsInHour);
+    return centimetresPerSecond;
+  }
+}
+```
 
+#### Or
+
+```java
+public class Cockroach{
+  public int cockroachSpeed(double x){
+    return (int)(x / 0.036);
+  }
+}
 ```
 
 ## Kata 68
@@ -133,7 +167,26 @@ public class Sum {
 ### My solution
 
 ```java
+public class Kata
+{
+  public static String switchItUp(int number)
+  {
+    switch (number){
+           case 0 : return "Zero";
+      case 1 : return "One";
+      case 2 : return "Two";
+      case 3 : return "Three";
+      case 4 : return "Four";
+      case 5 : return "Five";
+      case 6 : return "Six";
+      case 7 : return "Seven";
+      case 8 : return "Eight";
+      case 9 : return "Nine";
 
+    }
+  return "";
+  }
+}
 ```
 
 ### Best pratice
