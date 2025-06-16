@@ -1,6 +1,4 @@
-# Découverte de Docker
-
-## Comprendre la différence entre Bare Metal, Virtual Machine et Container
+# Comprendre la différence entre Bare Metal, Virtual Machine et Container
 
 ## Bare Metal
 
@@ -63,8 +61,6 @@
 
 ### ⚙️ Avantages des conteneurs
 
-# 📦 Avantages des Conteneurs
-
 | Avantage                    | Description                                                                                   |
 | --------------------------- | --------------------------------------------------------------------------------------------- |
 | **Légèreté**                | Partagent le noyau de l’OS, ce qui réduit l'utilisation de ressources par rapport aux VM.     |
@@ -74,3 +70,22 @@
 | **Isolation**               | Chaque conteneur fonctionne dans son propre environnement, sans interférence.                 |
 | **Facilité de déploiement** | Intégration continue (CI/CD), mise à jour rapide, rollback simplifié.                         |
 | **Écosystème riche**        | Supporté par Docker, Kubernetes, et une large communauté open source.                         |
+
+### Comparaison : Bare Metal vs VM vs Conteneur
+
+| Critère                        | 🖥️ Bare Metal                                | 💾 Machine Virtuelle (VM)                               | 📦 Conteneur                                        |
+| ------------------------------ | -------------------------------------------- | ------------------------------------------------------- | --------------------------------------------------- |
+| **Performance**                | Excellente : pas de couche de virtualisation | Bonne, mais avec une surcharge liée à la virtualisation | Très bonne : partage le noyau de l’OS hôte          |
+| **Isolation / Sécurité**       | Faible : faible isolation entre applis       | Excellente : chaque VM est totalement isolée            | Bonne : nécessite une gestion de sécurité attentive |
+| **Flexibilité / Portabilité**  | Faible : dépendance forte au matériel        | Bonne : les VM peuvent migrer entre hôtes               | Excellente : exécution sur Bare Metal, VM ou cloud  |
+| **Utilisation des ressources** | Maximale : accès direct au matériel          | Moins efficace : surcoût de virtualisation              | Optimale : faible empreinte, grande efficacité      |
+
+### Conclusion
+
+Le module a introduit trois concepts clés dans l'architecture informatique moderne et dans la gestion des infrastructures de développement et de déploiement : les systèmes Bare Metal, les machines virtuelles (VM), et les conteneurs.
+
+- Bare Metal représente le niveau le plus fondamental, désignant des serveurs physiques sans couche de virtualisation, offrant la plus haute performance due à l'accès direct au matériel.
+
+- Machines Virtuelles (VM) introduisent une couche d'abstraction via un hyperviseur, permettant de simuler plusieurs instances de systèmes d'exploitation indépendants sur un seul hôte physique. Bien que moins efficaces en termes d'utilisation des ressources que les conteneurs, les VM offrent une excellente isolation et flexibilité.
+
+- Conteneurs proposent une solution légère pour exécuter et gérer des applications en partageant le système d'exploitation de l'hôte tout en offrant une isolation entre les conteneurs. Ils se distinguent par leur efficacité en termes de performance et d'utilisation des ressources, ainsi que par leur portabilité.
