@@ -1,0 +1,176 @@
+# 🧠 Mémo complet : Références et pointeurs dans Git
+
+## 🏗 Concepts fondamentaux
+
+Git est un système de contrôle de version distribué qui repose sur une architecture orientée objet. Les références et pointeurs permettent à Git de naviguer dans l'historique du projet.
+
+## 📦 Objets Git
+
+| Type       | Description                           |
+| ---------- | ------------------------------------- |
+| **Blob**   | Contenu d'un fichier                  |
+| **Tree**   | Répertoire, contient des blobs/trees  |
+| **Commit** | Snapshot du projet + métadonnées      |
+| **Tag**    | Pointeur vers commit avec métadonnées |
+
+Chaque objet est identifié par un hash SHA-1 de 40 caractères.
+
+## 🔗 Références dans Git
+
+Les références sont des noms symboliques pointant vers des commits.
+
+### 📁 Types de références
+
+| Type               | Chemin               | Comportement             | Exemple           |
+| ------------------ | -------------------- | ------------------------ | ----------------- |
+| Branches locales   | `.git/refs/heads/`   | Bougent avec les commits | `refs/heads/main` |
+| Tags               | `.git/refs/tags/`    | Immobiles                | `refs/tags/v1.0`  |
+| Branches distantes | `.git/refs/remotes/` | Mises à jour par `fetch` | `origin/main`     |
+| Notes              | `.git/refs/notes/`   | Annotations              | -                 |
+
+### 📄 Fichiers de références
+
+```bash
+$ cat .git/refs/heads/main
+f30ab3dfa26592f5176db8bf4173c21a5f660453
+```
+
+### 🔁 Références symboliques
+
+Commencent par `ref: ` et pointent vers une autre référence. Exemple : `HEAD`.
+
+## 🎯 Pointeurs spéciaux
+
+| Fichier            | Rôle                                |
+| ------------------ | ----------------------------------- |
+| `HEAD`             | Branche active ou commit (detached) |
+| `FETCH_HEAD`       | Données récupérées par `git fetch`  |
+| `ORIG_HEAD`        | Sauvegarde avant opération risquée  |
+| `MERGE_HEAD`       | Pendant un merge                    |
+| `CHERRY_PICK_HEAD` | Pendant un cherry-pick              |
+
+## 🧩 Pointeurs internes
+
+| Objet  | Pointeurs                  |
+| ------ | -------------------------- |
+| Commit | Vers tree et parents       |
+| Tree   | Vers blobs et autres trees |
+
+## 🛠 Commandes utiles
+
+### 🔍 Inspecter les références
+
+```bash
+git show-ref
+git branch
+git branch -r
+git symbolic-ref HEAD
+git rev-parse main
+git log --graph --oneline --decorate
+```
+
+### 🧱 Manipuler les références
+
+```bash
+git branch nouvelle-branche [commit]
+git checkout -b nouvelle-branche [commit]
+git branch -f branche commit
+git tag v1.0 [commit]
+git tag -a v1.0 -m "Version 1.0" [commit]
+git checkout main
+git checkout a1b2c3d4
+git push origin main
+```
+
+## ⏮ Références relatives
+
+| Notation           | Description                  |
+| ------------------ | ---------------------------- |
+| `HEAD~1`, `HEAD~`  | Parent de HEAD               |
+| `HEAD~2`           | Grand-parent de HEAD         |
+| `HEAD^`, `HEAD^2`  | Parents d'un commit de merge |
+| `main@{yesterday}` | État de main hier            |
+| `main@{1}`         | Position précédente          |
+
+## 🕵️ Reflog : Historique
+
+```bash
+git reflog
+git reflog show main
+```
+
+Stocké dans `.git/logs/` pour retrouver des commits orphelins.
+
+## ⚙ Internes Git
+
+### 🔐 Packed-refs
+
+Git peut regrouper des références dans `.git/packed-refs` pour la performance.
+
+### 🧹 Garbage Collection
+
+```bash
+git gc
+```
+
+Nettoie les objets non référencés.
+
+## 🔬 Comparatif
+
+| Caractéristique | Références        | Pointeurs internes |
+| --------------- | ----------------- | ------------------ |
+| Visibilité      | Utilisateur       | Interne            |
+| Mutation        | Modifiables       | Immuables          |
+| Stockage        | `.git/refs/`      | Dans les objets    |
+| Usage           | Interface         | Structure Git      |
+| Nom             | Symbolique (main) | SHA-1              |
+
+## 🧪 Cas d'usage avancés
+
+- Gitflow / GitHub Flow
+- Tags pour releases
+- `git bisect` pour débogage
+- Rebase, reécriture d'historique
+
+## ✅ Bonnes pratiques
+
+- Nommer les branches : `feature/`, `bugfix/`
+- Taguer les versions : `v1.0.0`
+- Supprimer les branches inutiles
+- Exécuter `git gc` régulièrement
+
+## 🧬 Formats internes
+
+### 🔧 Commit
+
+```
+tree a1b2c3d4...
+parent f7e6d5c4...
+author John Doe <john@example.com> ...
+committer John Doe <john@example.com> ...
+
+Message
+```
+
+### 🔖 Tag
+
+```
+object a1b2c3...
+type commit
+tag v1.0
+tagger John Doe <john@example.com> ...
+
+Release 1.0
+```
+
+## 🧰 Commandes avancées
+
+```bash
+git update-ref refs/custom/my-ref a1b2c3d4e5f6
+git for-each-ref
+git prune
+git name-rev a1b2c3d4e5f6
+git log -g --abbrev-commit --pretty=oneline refs/heads/main
+```
+
+> ✨ Ce mémo fournit une vue approfondie du fonctionnement interne des références Git, utile pour les développeurs souhaitant comprendre ou manipuler finement leur historique Git.
