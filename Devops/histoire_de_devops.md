@@ -39,5 +39,3 @@
 ---
 
 > ✅ **À retenir** : DevOps est né du besoin de casser les silos entre Dev et Ops. Il prolonge l’agilité à toute la chaîne de production logicielle, en mettant l’accent sur la collaboration, l’automatisation et l’amélioration continue.
-
-Souhaites-tu que je combine ce mémo avec le précédent dans un seul fichier .md ?
