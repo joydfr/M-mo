@@ -26,7 +26,10 @@ jobs:
           echo "🔍 Vérification des messages de commit..."
           for commit in $(git log origin/${{ github.event.repository.default_branch }}..HEAD --pretty=format:"%H"); do
             msg=$(git log -1 --format=%B $commit | head -n 1)
-
+            if [[ "$msg" =~ ^Merge ]]; then
+                echo "🔄 Commit de merge ignoré"
+                continue
+              fi
             echo "📝 Commit: $commit"
             echo "🔎 Message: \"$msg\""
 
