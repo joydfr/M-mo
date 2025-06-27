@@ -20,7 +20,7 @@ jobs:
 
       - name: Check commit messages
         run: |
-          regex='^(feat|fix|chore|docs|style|refactor|perf|test)(\([a-zA-Z0-9\-]+\))?: .+'
+          regex='^(feat|fix|chore|docs|style|refactor|perf|test)(\([a-zA-Z0-9_\-]+\))?: .+'
           fail=false
 
           echo "🔍 Vérification des messages de commit..."
