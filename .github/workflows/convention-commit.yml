@@ -1,0 +1,45 @@
+name: Validate Commit Messages
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+
+jobs:
+  commit-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Fetch full history (needed for multiple commits)
+        run: git fetch --prune --unshallow || true
+
+      - name: Check commit messages
+        run: |
+          regex='^(feat|fix|chore|docs|style|refactor|perf|test)(\([a-zA-Z0-9\-]+\))?: .+'
+          fail=false
+
+          echo "🔍 Vérification des messages de commit..."
+          for commit in $(git log origin/${{ github.event.repository.default_branch }}..HEAD --pretty=format:"%H"); do
+            msg=$(git log -1 --format=%B $commit | head -n 1)
+
+            echo "📝 Commit: $commit"
+            echo "🔎 Message: \"$msg\""
+
+            if [[ ! "$msg" =~ $regex ]]; then
+              echo "❌ Message de commit invalide"
+              fail=true
+            else
+              echo "✅ Commit valide"
+            fi
+            echo "-------------------------"
+          done
+
+          if $fail; then
+            echo "🚫 Certains messages de commit ne respectent pas la convention."
+            exit 1
+          fi
