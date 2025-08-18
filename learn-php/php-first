@@ -1,0 +1,224 @@
+# Mémo Lundi - Apprentissage Symfony 🏸
+
+## 🎯 Objectif accompli
+
+Création des entités de base pour l'application de gestion d'événements badminton **MyBadProjet**
+
+---
+
+## ✅ Ce qu'on a appris
+
+### **1. Installation et configuration Symfony**
+
+- Installation PHP 8.3 avec Homebrew
+- Configuration du PATH pour PHP
+- Installation Symfony CLI vs Composer
+- Création projet : `symfony new . --webapp`
+- Configuration PostgreSQL avec `.env.local`
+
+### **2. Conventions PHP vs C#**
+
+| Aspect     | C#         | PHP/Symfony |
+| ---------- | ---------- | ----------- |
+| Propriétés | PascalCase | camelCase   |
+| Classes    | PascalCase | PascalCase  |
+| Méthodes   | PascalCase | camelCase   |
+| Exemple    | `FullName` | `fullName`  |
+
+### **3. Entités Doctrine**
+
+- Générateur : `php bin/console make:entity`
+- Attributs Doctrine : `#[ORM\Entity]`, `#[ORM\Column]`
+- Getters/Setters obligatoires (contrairement aux Properties C#)
+- Migrations : `make:migration` → `doctrine:migrations:migrate`
+
+### **4. UUID en PHP/Symfony**
+
+- Package : `composer require symfony/uid`
+- Import : `use Symfony\Component\Uid\Uuid;`
+- Configuration UUID :
+
+```php
+#[ORM\Id]
+#[ORM\Column(type: 'uuid', unique: true)]
+#[ORM\GeneratedValue(strategy: 'CUSTOM')]
+#[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+private ?Uuid $id = null;
+```
+
+### **5. Structure projet créée**
+
+```
+MyBadProjet/
+├── src/Entity/
+│   ├── User.php (fullName, pseudo, phoneNumber, email, password, isAdmin)
+│   ├── Place.php (name, adress, phoneNumber, email)
+│   └── Sessions.php (date, registrationDeadline, status, createAt)
+├── src/Repository/ (générés automatiquement)
+├── migrations/ (fichiers de migration)
+└── .env.local (config PostgreSQL locale)
+```
+
+---
+
+## ❌ Erreurs rencontrées et solutions
+
+### **1. Erreur PHP "command not found"**
+
+**Problème :** PHP 8.3 installé mais pas dans le PATH
+
+```bash
+> php --version
+zsh: command not found: php
+```
+
+**Solution :**
+
+```bash
+echo 'export PATH="/opt/homebrew/opt/php@8.3/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+### **2. Erreur PostgreSQL "role does not exist"**
+
+**Problème :** Configuration DATABASE_URL incorrecte
+
+```
+FATAL: role "app" does not exist
+```
+
+**Solution :** Créer `.env.local` avec bon utilisateur :
+
+```env
+DATABASE_URL="postgresql://jodydufour@127.0.0.1:5432/mybad_events?serverVersion=17&charset=utf8"
+```
+
+### **3. Erreur UUID "Undefined type"**
+
+**Problème :** Package symfony/uid pas installé
+
+```
+Undefined type 'Symfony\Component\Uid\Uuid'
+```
+
+**Solution :**
+
+```bash
+composer require symfony/uid
+# + reload VS Code
+```
+
+### **4. Erreur migration UUID**
+
+**Problème :** Conversion integer → uuid impossible
+
+```
+ERROR: column "id" cannot be cast automatically to type uuid
+```
+
+**Solution :** Reset complet de la base
+
+```bash
+php bin/console doctrine:database:drop --force
+php bin/console doctrine:database:create
+rm migrations/Version*.php
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+```
+
+### **5. Confusion make:entity interactif**
+
+**Problème :** Taper des commandes dans le prompt "New property name"
+**Solution :** Comprendre que c'est un assistant interactif, pas un terminal
+
+---
+
+## 🔧 Commandes importantes apprises
+
+### **Base Symfony**
+
+```bash
+symfony new . --webapp                    # Créer projet
+symfony serve                            # Serveur dev
+php bin/console --version                # Vérifier installation
+```
+
+### **Base de données**
+
+```bash
+php bin/console doctrine:database:create          # Créer BDD
+php bin/console make:entity EntityName            # Créer entité
+php bin/console make:migration                    # Générer migration
+php bin/console doctrine:migrations:migrate       # Appliquer migrations
+php bin/console doctrine:schema:validate          # Vérifier schéma
+```
+
+### **Packages**
+
+```bash
+composer require symfony/uid              # Installer UUID
+composer show | grep uid                 # Vérifier installation
+```
+
+---
+
+## 🎓 Concepts clés assimilés
+
+### **1. Différences avec C#**
+
+- **Entités** : Plus riches en PHP (getters/setters + logique métier)
+- **Migrations** : Explicites vs automatiques EF
+- **Configuration** : Fichiers .env vs appsettings.json
+
+### **2. Workflow Symfony**
+
+1. Créer entité (`make:entity`)
+2. Modifier si nécessaire (UUID, relations)
+3. Générer migration (`make:migration`)
+4. Appliquer migration (`doctrine:migrations:migrate`)
+
+### **3. Bonnes pratiques**
+
+- ✅ Utiliser `.env.local` pour config locale
+- ✅ UUID pour identifiants
+- ✅ Conventions camelCase PHP
+- ✅ Reset BDD en développement si blocage
+- ✅ Commit régulier du code
+
+---
+
+## 📋 État actuel du projet
+
+### **Entités créées :**
+
+- [x] **User** avec UUID
+- [x] **Place** avec UUID
+- [x] **Sessions** avec UUID
+
+### **Prochaines étapes (Mardi) :**
+
+- [ ] Relations entre entités (Many-to-One, etc.)
+- [ ] Controllers et routing
+- [ ] CRUD basique
+- [ ] API REST
+- [ ] Templates Twig
+
+### **Git status :**
+
+```bash
+git add .
+git commit -m "Add User, Place and Sessions entities with UUID"
+git push origin develop
+```
+
+---
+
+## 💡 Points d'attention pour demain
+
+1. **Relations Doctrine** : Plus complexes qu'en C# EF
+2. **Routing Symfony** : Attributs vs configuration
+3. **Twig vs Razor** : Syntaxe différente
+4. **Injection de dépendances** : Similaire mais configuration différente
+
+**Temps total :** ~4h (installation + 3 entités + debugging)
+**Niveau de compréhension :** 7/10 - Bases solides acquises ! 🚀
